@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
@@ -15,66 +15,97 @@ const navSections = [
 ];
 
 const Header = ({ activeSection }: HeaderProps) => {
+  // State management
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCallbackVisible, setIsCallbackVisible] = useState(false);
-  const [isMenuAnimating, setIsMenuAnimating] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // Handle window resizing and scrolling
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+      // Close mobile menu on resize to desktop
+      if (window.innerWidth >= 1024 && isOpen) {
+        setIsOpen(false);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
 
-  // Fix for mobile scroll navigation with improved accuracy
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen && 
+        menuRef.current && 
+        buttonRef.current && 
+        !menuRef.current.contains(event.target as Node) && 
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    // Add event listeners
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    // Call once to set initial state
+    handleResize();
+    handleScroll();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Enhanced scroll navigation with proper offset calculation
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Get header height dynamically with a small additional offset for better positioning
+      // Calculate the header height dynamically
       const header = document.querySelector('header');
-      // Add additional offset for mobile devices (20px) or standard offset for desktop (10px)
-      const additionalOffset = window.innerWidth < 768 ? 20 : 10;
-      const headerHeight = header ? header.clientHeight + additionalOffset : 90;
+      const headerHeight = header ? header.clientHeight : 80;
       
-      const offsetTop = element.offsetTop;
+      // Additional offset based on device type
+      const additionalOffset = viewportWidth < 768 ? 20 : 10;
+      const totalOffset = headerHeight + additionalOffset;
       
-      // Use smooth scroll with correct offset and a small delay to ensure the UI is ready
-      setTimeout(() => {
-        window.scrollTo({
-          top: offsetTop - headerHeight,
-          behavior: 'smooth'
-        });
-      }, 50);
+      // Get the element's position
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - totalOffset;
       
-      // Close mobile menu after navigation
+      // Scroll with smooth behavior
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Close mobile menu if open
       if (isOpen) {
-        setIsMenuAnimating(true);
-        setTimeout(() => {
-          setIsOpen(false);
-          setIsMenuAnimating(false);
-        }, 300);
+        setIsOpen(false);
       }
     }
-  }, [isOpen]);
+  }, [isOpen, viewportWidth]);
 
-  const toggleCallback = () => {
-    setIsCallbackVisible(!isCallbackVisible);
-  };
+  // Toggle handlers
+  const toggleCallback = useCallback(() => {
+    setIsCallbackVisible(prev => !prev);
+  }, []);
 
-  const toggleMenu = () => {
-    if (!isMenuAnimating) {
-      setIsOpen(!isOpen);
-      console.log("Menu toggled, isOpen:", !isOpen); // Debug logging
-    }
-  };
+  const toggleMenu = useCallback(() => {
+    setIsOpen(prev => !prev);
+    console.log("Menu toggled");
+  }, []);
 
+  // Animation variants
   const navItemVariants = {
     hidden: { 
       opacity: 0,
@@ -100,6 +131,7 @@ const Header = ({ activeSection }: HeaderProps) => {
 
   return (
     <>
+      {/* Main Header */}
       <motion.header 
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled ? 'py-2' : 'py-4'
@@ -110,6 +142,7 @@ const Header = ({ activeSection }: HeaderProps) => {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
+            {/* Logo / Brand */}
             <motion.button 
               onClick={() => scrollToSection('hero')} 
               className="flex items-center group"
@@ -227,6 +260,7 @@ const Header = ({ activeSection }: HeaderProps) => {
               </motion.button>
               
               <motion.button 
+                ref={buttonRef}
                 onClick={toggleMenu}
                 className="w-10 h-10 rounded-md flex items-center justify-center focus:outline-none overflow-hidden bg-slate-100 text-[#0A2463]"
                 whileHover={{ scale: 1.05 }}
@@ -245,154 +279,153 @@ const Header = ({ activeSection }: HeaderProps) => {
               </motion.button>
             </div>
           </div>
-          
-
         </div>
-        
-        {/* Enhanced Mobile Navigation Menu */}
-        <AnimatePresence>
-          {isOpen && (
+      </motion.header>
+      
+      {/* Mobile Navigation Menu - Separate from header for better z-index control */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            ref={menuRef}
+            className="fixed inset-0 bg-gradient-to-b from-[#0A2463]/95 to-[#0A2463]/90 backdrop-blur-md z-[100] flex flex-col lg:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Top header with logo and close button */}
             <motion.div 
-              className="lg:hidden fixed inset-0 bg-gradient-to-b from-[#0A2463]/95 to-[#0A2463]/90 backdrop-blur-md z-[60] flex flex-col"
+              className="flex items-center justify-between px-6 py-4 border-b border-white/10"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-[#E6AF2E] flex items-center justify-center rounded-lg mr-3">
+                  <span className="text-[#0A2463] font-serif font-bold text-xl">JW</span>
+                </div>
+                <div className="text-white font-serif text-lg">James Wilson</div>
+              </div>
+              
+              <motion.button
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
+                onClick={toggleMenu}
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <i className="fas fa-times text-xl"></i>
+              </motion.button>
+            </motion.div>
+            
+            {/* Navigation items with beautiful design */}
+            <motion.div 
+              className="flex-1 overflow-auto px-4 sm:px-6 py-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ delay: 0.2 }}
             >
-              {/* Top header with logo and close button */}
-              <motion.div 
-                className="flex items-center justify-between px-6 py-4 border-b border-white/10"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-[#E6AF2E] flex items-center justify-center rounded-lg mr-3">
-                    <span className="text-[#0A2463] font-serif font-bold text-xl">JW</span>
-                  </div>
-                  <div className="text-white font-serif text-lg">James Wilson</div>
-                </div>
-                
-                <motion.button
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
-                  onClick={toggleMenu}
-                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <i className="fas fa-times text-xl"></i>
-                </motion.button>
-              </motion.div>
-              
-              {/* Navigation items with beautiful design */}
-              <motion.div 
-                className="flex-1 overflow-auto px-6 py-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <nav>
-                  <ul className="grid grid-cols-2 gap-4">
-                    {navSections.map((section, i) => (
-                      <motion.li
-                        key={section.id}
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { 
-                            opacity: 1, 
-                            y: 0,
-                            transition: {
-                              delay: 0.2 + (i * 0.1)
-                            }
+              <nav>
+                <ul className="grid grid-cols-2 gap-3">
+                  {navSections.map((section, i) => (
+                    <motion.li
+                      key={section.id}
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { 
+                          opacity: 1, 
+                          y: 0,
+                          transition: {
+                            delay: 0.15 + (i * 0.08)
                           }
-                        }}
-                        initial="hidden"
-                        animate="visible"
+                        }
+                      }}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      <motion.button
+                        onClick={() => scrollToSection(section.id)}
+                        className={`flex flex-col items-center w-full py-4 px-3 rounded-xl ${
+                          activeSection === section.id 
+                            ? 'bg-white text-[#0A2463]' 
+                            : 'bg-white/10 text-white hover:bg-white/20'
+                        }`}
+                        whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <motion.button
-                          onClick={() => scrollToSection(section.id)}
-                          className={`flex flex-col items-center w-full py-5 px-4 rounded-xl ${
+                        <motion.div 
+                          className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
                             activeSection === section.id 
-                              ? 'bg-white text-[#0A2463]' 
-                              : 'bg-white/10 text-white hover:bg-white/20'
+                              ? 'bg-[#E6AF2E]/20 text-[#E6AF2E]' 
+                              : 'bg-white/10 text-white'
                           }`}
-                          whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }}
-                          whileTap={{ scale: 0.98 }}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
                         >
+                          <i className={`fas ${
+                            section.id === 'about' ? 'fa-user' :
+                            section.id === 'services' ? 'fa-briefcase' :
+                            section.id === 'team' ? 'fa-users' :
+                            section.id === 'testimonials' ? 'fa-quote-right' :
+                            section.id === 'clients' ? 'fa-handshake' :
+                            section.id === 'contact' ? 'fa-envelope' : 'fa-circle'
+                          } text-xl`}></i>
+                        </motion.div>
+                        <span className="text-center font-medium text-sm">
+                          {section.label}
+                        </span>
+                        {activeSection === section.id && (
                           <motion.div 
-                            className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
-                              activeSection === section.id 
-                                ? 'bg-[#E6AF2E]/20 text-[#E6AF2E]' 
-                                : 'bg-white/10 text-white'
-                            }`}
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                          >
-                            <i className={`fas ${
-                              section.id === 'about' ? 'fa-user' :
-                              section.id === 'services' ? 'fa-briefcase' :
-                              section.id === 'team' ? 'fa-users' :
-                              section.id === 'testimonials' ? 'fa-quote-right' :
-                              section.id === 'clients' ? 'fa-handshake' :
-                              section.id === 'contact' ? 'fa-envelope' : 'fa-circle'
-                            } text-xl`}></i>
-                          </motion.div>
-                          <span className="text-center font-medium">
-                            {section.label}
-                          </span>
-                          {activeSection === section.id && (
-                            <motion.div 
-                              className="mt-2 w-6 h-1 bg-[#E6AF2E] rounded-full"
-                              layoutId="mobileActiveIndicator"
-                            />
-                          )}
-                        </motion.button>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </nav>
-              </motion.div>
-              
-              {/* Bottom action button */}
-              <motion.div
-                className="p-6 border-t border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <motion.button
-                  onClick={() => {
-                    toggleCallback();
-                    toggleMenu();
-                  }}
-                  className="w-full bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-4 px-6 rounded-xl shadow-lg flex items-center justify-center gap-3"
-                  whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: "0 10px 25px rgba(230, 175, 46, 0.4)"
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <motion.i 
-                    className="fas fa-phone-alt text-lg"
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: [0, 15, -15, 0] }}
-                    transition={{ 
-                      duration: 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 2
-                    }}
-                  ></motion.i>
-                  <span className="text-lg">Request Callback</span>
-                </motion.button>
-              </motion.div>
+                            className="mt-2 w-6 h-1 bg-[#E6AF2E] rounded-full"
+                            layoutId="mobileActiveIndicator"
+                          />
+                        )}
+                      </motion.button>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+            
+            {/* Bottom action button */}
+            <motion.div
+              className="p-4 sm:p-6 border-t border-white/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <motion.button
+                onClick={() => {
+                  toggleCallback();
+                  toggleMenu();
+                }}
+                className="w-full bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-4 px-6 rounded-xl shadow-lg flex items-center justify-center gap-3"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 10px 25px rgba(230, 175, 46, 0.4)"
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.i 
+                  className="fas fa-phone-alt text-lg"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ 
+                    duration: 0.5,
+                    repeat: Infinity,
+                    repeatDelay: 2
+                  }}
+                ></motion.i>
+                <span className="text-lg">Request Callback</span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Callback Modal */}
+      {/* Callback Modal - Highest z-index to appear above all */}
       <AnimatePresence>
         {isCallbackVisible && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-50 z-[200] flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -410,6 +443,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               ></motion.div>
+              
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
                   <motion.h2 
@@ -425,6 +459,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                     className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
+                    aria-label="Close modal"
                   >
                     <i className="fas fa-times text-xl"></i>
                   </motion.button>
