@@ -147,28 +147,15 @@ const Footer = () => {
           ))}
         </div>
         
-        {/* Newsletter and social */}
+        {/* Social media links */}
         <motion.div 
-          className="border-t border-white/10 pt-8 pb-4 flex flex-col lg:flex-row items-center justify-between"
+          className="border-t border-white/10 pt-8 pb-4 flex flex-col items-center justify-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="mb-6 lg:mb-0">
-            <h3 className="text-lg font-medium mb-4">Subscribe to our Newsletter</h3>
-            <div className="flex w-full max-w-md">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] text-white"
-              />
-              <button className="bg-[#E6AF2E] px-4 py-2 rounded-r-md text-[#0A2463] font-bold hover:bg-yellow-500 transition-colors duration-300">
-                Subscribe
-              </button>
-            </div>
-          </div>
-          
+          <h3 className="text-lg font-medium mb-4">Connect With Me</h3>
           <div className="flex space-x-4">
             <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
               <i className="fab fa-linkedin-in text-[#E6AF2E]"></i>
