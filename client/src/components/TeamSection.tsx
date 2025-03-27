@@ -136,11 +136,68 @@ const TeamSection = ({ registerSection }: TeamSectionProps) => {
         </div>
         
         <motion.div 
-          className="mt-16 text-center"
+          className="mt-16 text-center space-y-6"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
+          {/* Sample section with consultation options */}
+          <motion.div 
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-xl max-w-3xl mx-auto border border-gray-100"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.6, delay: 1 }}
+          >
+            <h3 className="text-[#0A2463] font-serif font-bold text-xl mb-3">Sample Free Consultation</h3>
+            <p className="text-gray-600 mb-4">Experience our approach with a complimentary 30-minute consultation. Discuss your legal needs with our experienced attorneys.</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              <motion.div 
+                className="bg-[#F8F9FA] p-4 rounded-lg border border-gray-100 flex flex-col items-center"
+                whileHover={{ y: -5, boxShadow: "0 10px 15px rgba(0, 0, 0, 0.05)" }}
+              >
+                <div className="w-12 h-12 rounded-full bg-[#E6AF2E]/20 flex items-center justify-center mb-3">
+                  <i className="fas fa-phone text-[#E6AF2E]"></i>
+                </div>
+                <h4 className="font-medium text-[#0A2463]">Phone Call</h4>
+                <p className="text-sm text-gray-500 text-center mt-1">Quick discussion of your legal matter</p>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-[#F8F9FA] p-4 rounded-lg border border-gray-100 flex flex-col items-center"
+                whileHover={{ y: -5, boxShadow: "0 10px 15px rgba(0, 0, 0, 0.05)" }}
+              >
+                <div className="w-12 h-12 rounded-full bg-[#E6AF2E]/20 flex items-center justify-center mb-3">
+                  <i className="fas fa-video text-[#E6AF2E]"></i>
+                </div>
+                <h4 className="font-medium text-[#0A2463]">Video Call</h4>
+                <p className="text-sm text-gray-500 text-center mt-1">Face-to-face virtual meeting with an attorney</p>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-[#F8F9FA] p-4 rounded-lg border border-gray-100 flex flex-col items-center"
+                whileHover={{ y: -5, boxShadow: "0 10px 15px rgba(0, 0, 0, 0.05)" }}
+              >
+                <div className="w-12 h-12 rounded-full bg-[#E6AF2E]/20 flex items-center justify-center mb-3">
+                  <i className="fas fa-building text-[#E6AF2E]"></i>
+                </div>
+                <h4 className="font-medium text-[#0A2463]">Office Visit</h4>
+                <p className="text-sm text-gray-500 text-center mt-1">In-person consultation at our office</p>
+              </motion.div>
+            </div>
+            
+            <motion.button
+              className="mt-6 bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-3 px-6 rounded-lg shadow-md"
+              whileHover={{ 
+                scale: 1.03,
+                boxShadow: "0 10px 15px rgba(230, 175, 46, 0.2)" 
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Book Your Free Consultation
+            </motion.button>
+          </motion.div>
+
           <motion.a 
             href="#contact" 
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#0A2463] text-white rounded-lg font-medium shadow-lg hover:bg-[#0A2463]/90 transition-all"
