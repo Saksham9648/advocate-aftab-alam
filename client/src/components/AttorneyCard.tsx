@@ -9,6 +9,9 @@ interface AttorneyCardProps {
   socialLinks: {
     linkedin?: string;
     twitter?: string;
+    facebook?: string;
+    instagram?: string;
+    youtube?: string;
     email?: string;
   };
   delay: number;
@@ -184,7 +187,7 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
           whileHover="hover"
         >
           <motion.div 
-            className="flex space-x-3 mb-3 justify-center"
+            className="flex space-x-3 mb-3 justify-center flex-wrap gap-2"
             initial="hidden"
             whileHover="visible"
             animate="visible"
@@ -199,6 +202,54 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
               }
             }}
           >
+            {socialLinks.facebook && (
+              <motion.a 
+                href={socialLinks.facebook} 
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg"
+                target="_blank"
+                rel="noreferrer"
+                variants={socialIconVariants}
+                whileHover="hover"
+                aria-label="Facebook"
+              >
+                <motion.i 
+                  className="fab fa-facebook-f text-[#0A2463]"
+                  whileHover={{ color: "#E6AF2E" }}
+                ></motion.i>
+              </motion.a>
+            )}
+            {socialLinks.youtube && (
+              <motion.a 
+                href={socialLinks.youtube} 
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg"
+                target="_blank"
+                rel="noreferrer"
+                variants={socialIconVariants}
+                whileHover="hover"
+                aria-label="YouTube"
+              >
+                <motion.i 
+                  className="fab fa-youtube text-[#0A2463]"
+                  whileHover={{ color: "#E6AF2E" }}
+                ></motion.i>
+              </motion.a>
+            )}
+            {socialLinks.instagram && (
+              <motion.a 
+                href={socialLinks.instagram} 
+                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg"
+                target="_blank"
+                rel="noreferrer"
+                variants={socialIconVariants}
+                whileHover="hover"
+                aria-label="Instagram"
+              >
+                <motion.i 
+                  className="fab fa-instagram text-[#0A2463]"
+                  whileHover={{ color: "#E6AF2E" }}
+                ></motion.i>
+              </motion.a>
+            )}
             {socialLinks.linkedin && (
               <motion.a 
                 href={socialLinks.linkedin} 
@@ -207,6 +258,7 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
                 rel="noreferrer"
                 variants={socialIconVariants}
                 whileHover="hover"
+                aria-label="LinkedIn"
               >
                 <motion.i 
                   className="fab fa-linkedin-in text-[#0A2463]"
@@ -222,6 +274,7 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
                 rel="noreferrer"
                 variants={socialIconVariants}
                 whileHover="hover"
+                aria-label="Twitter"
               >
                 <motion.i 
                   className="fab fa-twitter text-[#0A2463]"
@@ -235,6 +288,7 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
                 className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg"
                 variants={socialIconVariants}
                 whileHover="hover"
+                aria-label="Email"
               >
                 <motion.i 
                   className="fas fa-envelope text-[#0A2463]"

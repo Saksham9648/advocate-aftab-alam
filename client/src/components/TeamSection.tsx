@@ -14,9 +14,10 @@ const attorneys = [
     title: "Founding Partner",
     bio: "With over 10 years of experience, Aftab has established a reputation for excellence in criminal law, civil disputes, and family law. Mumbai University Law graduate and member of the Bar Council of India.",
     socialLinks: {
-      linkedin: "#",
-      twitter: "#",
-      email: "aftab.advocate@lawfirm.com"
+      facebook: "https://www.facebook.com/aftabalamlmp?mibextid=ZbWKwL",
+      youtube: "https://youtube.com/channel/UCdWSJXOkTlVnAWiltezgX-Q",
+      instagram: "https://www.instagram.com/advaftabalam/",
+      email: "aftabalamanasari1987@gmail.com"
     }
   },
   {
