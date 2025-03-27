@@ -120,11 +120,40 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
         <i className="fas fa-gavel text-6xl"></i>
       </motion.div>
       
-      {/* Main content */}
+      {/* Main content - Significantly enhanced with modern design */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-24 pb-16">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Decorative top element */}
+          <motion.div 
+            className="w-20 h-1 bg-[#E6AF2E] mx-auto mb-6"
+            initial={{ width: 0 }}
+            animate={{ width: 80 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          />
+        
+          <motion.div
+            className="mb-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <motion.span
+              className="text-[#E6AF2E] text-sm uppercase tracking-[0.25em] font-medium"
+              animate={{ 
+                letterSpacing: ["0.25em", "0.3em", "0.25em"]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity,
+                repeatType: "reverse" 
+              }}
+            >
+              James Wilson Law Firm
+            </motion.span>
+          </motion.div>
+          
           <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -133,44 +162,61 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
               stiffness: 100,
             }}
           >
-            <motion.span 
-              className="relative inline-block"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
+            <motion.div className="flex flex-col md:flex-row justify-center items-center md:space-x-4">
               <motion.span 
-                className="text-[#E6AF2E] relative z-10"
-                animate={{ 
-                  textShadow: ["0 0 5px rgba(230, 175, 46, 0)", "0 0 15px rgba(230, 175, 46, 0.5)", "0 0 5px rgba(230, 175, 46, 0)"]
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity,
-                  repeatType: "loop" 
-                }}
+                className="relative inline-block mb-2 md:mb-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
               >
-                Legal Excellence
+                <motion.span 
+                  className="text-[#E6AF2E] relative z-10 block md:inline"
+                  animate={{ 
+                    textShadow: ["0 0 5px rgba(230, 175, 46, 0)", "0 0 15px rgba(230, 175, 46, 0.5)", "0 0 5px rgba(230, 175, 46, 0)"]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity,
+                    repeatType: "loop" 
+                  }}
+                >
+                  Legal Excellence
+                </motion.span>
+                <motion.div 
+                  className="absolute -bottom-1 left-0 right-0 h-3 bg-[#E6AF2E]/20 -z-10"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                />
               </motion.span>
-              <motion.div 
-                className="absolute -bottom-1 left-0 right-0 h-3 bg-[#E6AF2E]/20 -z-10"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              />
-            </motion.span>, <br />
-            <motion.span
-              variants={textVariants}
-              initial="hidden"
-              animate="visible"
-              custom={1}
-            >
-              Personalized Approach
-            </motion.span>
+              
+              <motion.span
+                className="text-white font-serif hidden md:block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.9 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >•</motion.span>
+              
+              <motion.span
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                custom={1}
+                className="block md:inline relative"
+              >
+                <span>Personalized Approach</span>
+                <motion.div 
+                  className="absolute -bottom-3 left-1/4 right-1/4 h-0.5 bg-white/40"
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{ scaleX: 1, opacity: 0.6 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                />
+              </motion.span>
+            </motion.div>
           </motion.h1>
           
           <motion.p 
-            className="text-lg md:text-xl mb-10 opacity-90 max-w-2xl mx-auto"
+            className="text-lg md:text-xl mb-10 opacity-90 max-w-2xl mx-auto leading-relaxed"
             variants={textVariants}
             initial="hidden"
             animate="visible"
@@ -180,7 +226,7 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
           </motion.p>
           
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row justify-center gap-5 mb-16"
             variants={textVariants}
             initial="hidden"
             animate="visible"
@@ -188,32 +234,43 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
           >
             <motion.button
               onClick={() => scrollToSection('contact')}
-              className="bg-[#E6AF2E] hover:bg-yellow-500 text-[#0A2463] font-bold py-3 px-8 rounded-md transition-colors duration-300 shadow-lg relative overflow-hidden group"
+              className="bg-[#E6AF2E] hover:bg-yellow-500 text-[#0A2463] font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl relative overflow-hidden group"
               variants={btnVariants}
               whileHover="hover"
               whileTap="tap"
             >
-              <span className="relative z-10">Schedule Consultation</span>
-              <motion.span 
-                className="absolute inset-0 bg-white"
-                initial={{ x: "-100%", opacity: 0.3 }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-[#E6AF2E] via-[#FBBC05] to-[#E6AF2E] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  repeatType: "loop",
+                }}
               />
+              <span className="relative z-10 flex items-center justify-center">
+                <i className="fas fa-calendar-check mr-2"></i>
+                Schedule Consultation
+              </span>
             </motion.button>
             
             <motion.button
               onClick={() => scrollToSection('services')}
-              className="bg-transparent hover:bg-white/10 text-white border-2 border-white font-bold py-3 px-8 rounded-md transition-all duration-300 relative overflow-hidden"
+              className="bg-transparent hover:bg-white/10 text-white border-2 border-white/80 font-bold py-4 px-8 rounded-xl transition-all duration-300 relative overflow-hidden"
               variants={btnVariants}
               whileHover="hover"
               whileTap="tap"
             >
-              <span className="relative z-10 group-hover:text-[#0A2463]">Learn About Services</span>
+              <span className="relative z-10 flex items-center justify-center">
+                <i className="fas fa-briefcase mr-2"></i>
+                Explore Our Services
+              </span>
               <motion.div 
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
+                className="absolute inset-0 bg-white/10"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               />
             </motion.button>
@@ -262,44 +319,38 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
         </div>
       </div>
       
-      {/* Scroll down indicator - simplified with just the button */}
-      <motion.div 
-        className="absolute bottom-16 md:bottom-10 left-1/2 transform -translate-x-1/2 z-30 pointer-events-auto"
+      {/* Enhanced decorative floating elements instead of scroll button */}
+      <motion.div
+        className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-[#E6AF2E]/10 backdrop-blur-sm z-20"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-      >
-        <motion.button
-          onClick={() => scrollToSection('about')}
-          className="w-14 h-14 rounded-full border-2 border-white/80 bg-[#0A2463]/60 backdrop-blur-sm flex items-center justify-center shadow-lg"
-          animate={{ 
-            y: [0, 5, 0],
-            boxShadow: ["0 4px 12px rgba(10, 36, 99, 0.3)", "0 6px 16px rgba(10, 36, 99, 0.4)", "0 4px 12px rgba(10, 36, 99, 0.3)"]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 2,
-            repeatType: "loop" 
-          }}
-          whileHover={{ 
-            scale: 1.1,
-            borderColor: "#E6AF2E",
-            backgroundColor: "rgba(230, 175, 46, 0.3)" 
-          }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <motion.i 
-            className="fas fa-chevron-down text-xl text-white"
-            animate={{ y: [0, 2, 0] }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 1.5,
-              repeatType: "loop",
-              delay: 0.2
-            }}
-          />
-        </motion.button>
-      </motion.div>
+        animate={{ 
+          opacity: [0, 0.5, 0.3],
+          y: [0, -15, 0],
+          scale: [1, 1.1, 1]
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          repeatType: "reverse",
+          delay: 1
+        }}
+      />
+      
+      <motion.div
+        className="absolute bottom-10 right-1/4 w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm z-20"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: [0, 0.3, 0.1],
+          y: [0, -10, 0],
+          scale: [1, 1.05, 1]
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+          delay: 0.5
+        }}
+      />
     </section>
   );
 };

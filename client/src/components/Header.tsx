@@ -246,139 +246,134 @@ const Header = ({ activeSection }: HeaderProps) => {
           </div>
         </div>
         
-        {/* Mobile Navigation Menu - Redesigned for better user experience */}
+        {/* Enhanced Mobile Navigation Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-end"
+              className="lg:hidden fixed inset-0 bg-gradient-to-b from-[#0A2463]/95 to-[#0A2463]/90 backdrop-blur-md z-40 flex flex-col"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Close button for mobile menu */}
-              <motion.button
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
-                onClick={toggleMenu}
-                whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <i className="fas fa-times text-xl"></i>
-              </motion.button>
-              
+              {/* Top header with logo and close button */}
               <motion.div 
-                className="w-full bg-white rounded-t-2xl shadow-2xl overflow-hidden"
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "100%" }}
-                transition={{ 
-                  type: "spring", 
-                  damping: 25, 
-                  stiffness: 300
-                }}
+                className="flex items-center justify-between px-6 py-4 border-b border-white/10"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
               >
-                <div className="w-1/3 h-1 bg-gray-300 mx-auto my-3 rounded-full"></div>
-                
-                <div className="p-6 pt-2">
-                  <motion.div
-                    className="mb-6 pb-4 border-b border-gray-100"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <h3 className="text-lg font-serif font-bold text-[#0A2463] mb-1">James Wilson</h3>
-                    <p className="text-sm text-gray-500">Attorney at Law</p>
-                  </motion.div>
-                  
-                  <nav className="mb-6">
-                    <ul className="space-y-4">
-                      {navSections.map((section, i) => (
-                        <motion.li
-                          key={section.id}
-                          variants={{
-                            hidden: { opacity: 0, x: -20 },
-                            visible: { 
-                              opacity: 1, 
-                              x: 0,
-                              transition: {
-                                delay: 0.1 + (i * 0.05)
-                              }
-                            }
-                          }}
-                          initial="hidden"
-                          animate="visible"
-                        >
-                          <motion.button
-                            onClick={() => scrollToSection(section.id)}
-                            className={`flex items-center w-full py-3 pl-4 pr-6 rounded-xl ${
-                              activeSection === section.id 
-                                ? 'bg-[#0A2463] text-white font-medium' 
-                                : 'text-[#0A2463] hover:bg-gray-50'
-                            }`}
-                            whileHover={{ x: 5 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <motion.div 
-                              className="w-8 h-8 rounded-lg bg-white/80 flex items-center justify-center mr-4 shadow-sm"
-                              whileHover={{ scale: 1.1, rotate: 5 }}
-                            >
-                              <i className={`fas ${
-                                section.id === 'about' ? 'fa-user' :
-                                section.id === 'services' ? 'fa-briefcase' :
-                                section.id === 'team' ? 'fa-users' :
-                                section.id === 'testimonials' ? 'fa-quote-right' :
-                                section.id === 'clients' ? 'fa-handshake' :
-                                section.id === 'contact' ? 'fa-envelope' : 'fa-circle'
-                              } ${activeSection === section.id ? 'text-[#E6AF2E]' : 'text-[#0A2463]'}`}></i>
-                            </motion.div>
-                            <span className={activeSection === section.id ? 'text-white' : 'text-[#0A2463]'}>
-                              {section.label}
-                            </span>
-                            {activeSection === section.id && (
-                              <motion.div 
-                                className="ml-auto"
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                <i className="fas fa-check-circle text-[#E6AF2E]"></i>
-                              </motion.div>
-                            )}
-                          </motion.button>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </nav>
-                  
-                  <motion.div
-                    className="pt-4 border-t border-gray-100"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <motion.button
-                      onClick={toggleCallback}
-                      className="w-full bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center gap-2"
-                      whileHover={{ 
-                        scale: 1.02,
-                        boxShadow: "0 5px 15px rgba(230, 175, 46, 0.3)"
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <motion.i 
-                        className="fas fa-phone-alt"
-                        initial={{ rotate: 0 }}
-                        animate={{ rotate: [0, 15, -15, 0] }}
-                        transition={{ 
-                          duration: 0.5,
-                          repeat: Infinity,
-                          repeatDelay: 3
-                        }}
-                      ></motion.i>
-                      <span>Request Callback</span>
-                    </motion.button>
-                  </motion.div>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-[#E6AF2E] flex items-center justify-center rounded-lg mr-3">
+                    <span className="text-[#0A2463] font-serif font-bold text-xl">JW</span>
+                  </div>
+                  <div className="text-white font-serif text-lg">James Wilson</div>
                 </div>
+                
+                <motion.button
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
+                  onClick={toggleMenu}
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <i className="fas fa-times text-xl"></i>
+                </motion.button>
+              </motion.div>
+              
+              {/* Navigation items with beautiful design */}
+              <motion.div className="flex-1 overflow-auto px-6 py-8">
+                <nav>
+                  <ul className="grid grid-cols-2 gap-4">
+                    {navSections.map((section, i) => (
+                      <motion.li
+                        key={section.id}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { 
+                            opacity: 1, 
+                            y: 0,
+                            transition: {
+                              delay: 0.2 + (i * 0.1)
+                            }
+                          }
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                      >
+                        <motion.button
+                          onClick={() => scrollToSection(section.id)}
+                          className={`flex flex-col items-center w-full py-5 px-4 rounded-xl ${
+                            activeSection === section.id 
+                              ? 'bg-white text-[#0A2463]' 
+                              : 'bg-white/10 text-white hover:bg-white/20'
+                          }`}
+                          whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <motion.div 
+                            className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
+                              activeSection === section.id 
+                                ? 'bg-[#E6AF2E]/20 text-[#E6AF2E]' 
+                                : 'bg-white/10 text-white'
+                            }`}
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <i className={`fas ${
+                              section.id === 'about' ? 'fa-user' :
+                              section.id === 'services' ? 'fa-briefcase' :
+                              section.id === 'team' ? 'fa-users' :
+                              section.id === 'testimonials' ? 'fa-quote-right' :
+                              section.id === 'clients' ? 'fa-handshake' :
+                              section.id === 'contact' ? 'fa-envelope' : 'fa-circle'
+                            } text-xl`}></i>
+                          </motion.div>
+                          <span className="text-center font-medium">
+                            {section.label}
+                          </span>
+                          {activeSection === section.id && (
+                            <motion.div 
+                              className="mt-2 w-6 h-1 bg-[#E6AF2E] rounded-full"
+                              layoutId="mobileActiveIndicator"
+                            />
+                          )}
+                        </motion.button>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </nav>
+              </motion.div>
+              
+              {/* Bottom action button */}
+              <motion.div
+                className="p-6 border-t border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <motion.button
+                  onClick={() => {
+                    toggleCallback();
+                    toggleMenu();
+                  }}
+                  className="w-full bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-4 px-6 rounded-xl shadow-lg flex items-center justify-center gap-3"
+                  whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: "0 10px 25px rgba(230, 175, 46, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <motion.i 
+                    className="fas fa-phone-alt text-lg"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: [0, 15, -15, 0] }}
+                    transition={{ 
+                      duration: 0.5,
+                      repeat: Infinity,
+                      repeatDelay: 2
+                    }}
+                  ></motion.i>
+                  <span className="text-lg">Request Callback</span>
+                </motion.button>
               </motion.div>
             </motion.div>
           )}
