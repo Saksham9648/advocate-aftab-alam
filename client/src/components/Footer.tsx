@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logoImage from '../assets/logoalam.jpg';
 
 const Footer = () => {
   const scrollToSection = (sectionId: string) => {
@@ -68,16 +69,16 @@ const Footer = () => {
               onClick={() => scrollToSection('hero')}
               className="flex items-center mb-6 group"
             >
-              <div className="mr-3 w-10 h-10 bg-white text-[#0A2463] flex items-center justify-center rounded-md">
-                <span className="text-[#E6AF2E] font-serif font-bold text-xl">JW</span>
+              <div className="mr-3 w-10 h-10 bg-white flex items-center justify-center rounded-md overflow-hidden">
+                <img src={logoImage} alt="Advocate Aftab Alam" className="w-full h-full object-contain" />
               </div>
               <div className="text-xl font-serif font-bold text-white group-hover:text-[#E6AF2E] transition-colors duration-300">
-                James Wilson Law
+                Advocate Aftab Alam
               </div>
             </button>
             
             <p className="mb-8 text-white/80 max-w-md">
-              Providing exceptional legal counsel with integrity, expertise, and a commitment to your success for over 15 years.
+              Providing exceptional legal counsel with integrity, expertise, and a commitment to your success for over 10 years in criminal, civil, and family law matters.
             </p>
             
             <div className="space-y-4">
@@ -99,7 +100,7 @@ const Footer = () => {
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-envelope"></i>
                 </div>
-                <span>james@wilsonlaw.com</span>
+                <span>aftab.advocate@advocateaftabalam.com</span>
               </div>
             </div>
           </motion.div>
@@ -191,7 +192,7 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p>&copy; {new Date().getFullYear()} James Wilson Law Firm. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Advocate Aftab Alam. All rights reserved.</p>
           <p className="mt-1">
             This website is for informational purposes only. No attorney-client relationship is created by visiting this website.
           </p>

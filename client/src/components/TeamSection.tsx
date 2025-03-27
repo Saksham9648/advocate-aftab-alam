@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import AttorneyCard from './AttorneyCard';
+import aboutImage from '../assets/aboutalam.jpg';
 
 interface TeamSectionProps {
   registerSection: (id: string, ref: HTMLDivElement | null) => void;
@@ -8,14 +9,14 @@ interface TeamSectionProps {
 
 const attorneys = [
   {
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "James Wilson",
+    image: aboutImage,
+    name: "Advocate Aftab Alam",
     title: "Founding Partner",
-    bio: "With over 15 years of experience, James has established a reputation for excellence in corporate law and intellectual property. Harvard Law School graduate and recognized by Super Lawyers 2018-2023.",
+    bio: "With over 10 years of experience, Aftab has established a reputation for excellence in criminal law, civil disputes, and family law. Mumbai University Law graduate and member of the Bar Council of India.",
     socialLinks: {
       linkedin: "#",
       twitter: "#",
-      email: "james@wilsonlaw.com"
+      email: "aftab.advocate@lawfirm.com"
     }
   },
   {
@@ -25,7 +26,7 @@ const attorneys = [
     bio: "Sarah specializes in litigation and employment law. With her background in both corporate and non-profit sectors, she brings valuable insights to complex cases. Yale Law School graduate.",
     socialLinks: {
       linkedin: "#",
-      email: "sarah@wilsonlaw.com"
+      email: "sarah@advocateaftabalam.com"
     }
   },
   {
@@ -36,7 +37,7 @@ const attorneys = [
     socialLinks: {
       linkedin: "#",
       twitter: "#",
-      email: "michael@wilsonlaw.com"
+      email: "michael@advocateaftabalam.com"
     }
   },
   {
@@ -46,7 +47,7 @@ const attorneys = [
     bio: "Alexandra focuses on intellectual property and technology law. Her background in computer science provides her with unique insights into tech-related legal matters. Stanford Law School graduate.",
     socialLinks: {
       linkedin: "#",
-      email: "alexandra@wilsonlaw.com"
+      email: "alexandra@advocateaftabalam.com"
     }
   }
 ];
