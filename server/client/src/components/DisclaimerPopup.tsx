@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const DisclaimerPopup = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // For immediate testing, set isOpen to true by default
+  const [isOpen, setIsOpen] = useState(true);
 
+  // We don't need the useEffect for now as we're forcing it to show
+  // Will uncomment this when we confirm it's working
+  /*
   useEffect(() => {
     // For testing purposes, always show the disclaimer
-    // by clearing the localStorage entry
     localStorage.removeItem('hasSeenDisclaimer');
     
     // Check if the disclaimer has been shown before
@@ -21,6 +24,7 @@ const DisclaimerPopup = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+  */
 
   const closeDisclaimer = () => {
     // Mark that the user has seen the disclaimer
