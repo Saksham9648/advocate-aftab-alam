@@ -142,14 +142,32 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
               <div className="mt-10">
                 <h4 className="font-bold mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-                    <i className="fab fa-linkedin-in text-[#E6AF2E]"></i>
-                  </a>
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-                    <i className="fab fa-twitter text-[#E6AF2E]"></i>
-                  </a>
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <a 
+                    href="https://www.facebook.com/aftabalamlmp?mibextid=ZbWKwL" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                    aria-label="Facebook"
+                  >
                     <i className="fab fa-facebook-f text-[#E6AF2E]"></i>
+                  </a>
+                  <a 
+                    href="https://youtube.com/channel/UCdWSJXOkTlVnAWiltezgX-Q" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                    aria-label="YouTube"
+                  >
+                    <i className="fab fa-youtube text-[#E6AF2E]"></i>
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/advaftabalam/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                    aria-label="Instagram"
+                  >
+                    <i className="fab fa-instagram text-[#E6AF2E]"></i>
                   </a>
                 </div>
               </div>
