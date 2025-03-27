@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoImage from '../assets/logoalam.jpg';
 
 interface HeaderProps {
   activeSection: string;
@@ -150,35 +151,20 @@ const Header = ({ activeSection }: HeaderProps) => {
               whileTap={{ scale: 0.98 }}
             >
               <motion.div 
-                className="mr-3 w-12 h-12 bg-[#E6AF2E] text-[#0A2463] flex items-center justify-center rounded-md relative overflow-hidden"
+                className="mr-3 w-14 h-14 flex items-center justify-center rounded-full relative overflow-hidden"
                 whileHover={{
-                  boxShadow: "0 0 15px rgba(230, 175, 46, 0.6)",
+                  boxShadow: "0 0 15px rgba(0, 0, 0, 0.3)",
                   transition: { duration: 0.3 }
                 }}
               >
-                <motion.span 
-                  className="font-serif font-bold text-xl relative z-10"
-                  animate={{ 
-                    rotateY: [0, 360],
-                  }}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatDelay: 5
-                  }}
-                >
-                  JW
-                </motion.span>
-                <motion.div 
-                  className="absolute inset-0 bg-[#E6AF2E]"
-                  whileHover={{
-                    background: "radial-gradient(circle at center, #E6AF2E 0%, #d9a429 100%)"
-                  }}
+                <img 
+                  src={logoImage} 
+                  alt="Advocate Aftab Alam" 
+                  className="w-full h-full object-cover"
                 />
               </motion.div>
               <div className="text-xl font-serif font-bold text-[#0A2463] group-hover:text-[#E6AF2E] transition-colors duration-300">
-                James Wilson <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">LAW FIRM</span>
+                Advocate Aftab Alam <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">LAW FIRM</span>
               </div>
             </motion.button>
             
@@ -301,10 +287,10 @@ const Header = ({ activeSection }: HeaderProps) => {
               transition={{ delay: 0.1 }}
             >
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-[#E6AF2E] flex items-center justify-center rounded-lg mr-3">
-                  <span className="text-[#0A2463] font-serif font-bold text-xl">JW</span>
+                <div className="w-12 h-12 flex items-center justify-center rounded-full overflow-hidden mr-3">
+                  <img src={logoImage} alt="Advocate Aftab Alam" className="w-full h-full object-cover" />
                 </div>
-                <div className="text-white font-serif text-lg">James Wilson <span className="text-xs font-light text-white/70">LAW FIRM</span></div>
+                <div className="text-white font-serif text-lg">Advocate Aftab Alam <span className="text-xs font-light text-white/70">LAW FIRM</span></div>
               </div>
               
               <motion.button
