@@ -71,6 +71,7 @@ const Header = ({ activeSection }: HeaderProps) => {
   const toggleMenu = () => {
     if (!isMenuAnimating) {
       setIsOpen(!isOpen);
+      console.log("Menu toggled, isOpen:", !isOpen); // Debug logging
     }
   };
 
@@ -252,7 +253,7 @@ const Header = ({ activeSection }: HeaderProps) => {
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="lg:hidden fixed inset-0 bg-gradient-to-b from-[#0A2463]/95 to-[#0A2463]/90 backdrop-blur-md z-40 flex flex-col"
+              className="lg:hidden fixed inset-0 bg-gradient-to-b from-[#0A2463]/95 to-[#0A2463]/90 backdrop-blur-md z-[60] flex flex-col"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -283,7 +284,12 @@ const Header = ({ activeSection }: HeaderProps) => {
               </motion.div>
               
               {/* Navigation items with beautiful design */}
-              <motion.div className="flex-1 overflow-auto px-6 py-8">
+              <motion.div 
+                className="flex-1 overflow-auto px-6 py-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
                 <nav>
                   <ul className="grid grid-cols-2 gap-4">
                     {navSections.map((section, i) => (
