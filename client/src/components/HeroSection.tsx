@@ -74,22 +74,25 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
     >
       {/* Background elements */}
       {/* Enhanced background with gradient overlay for better aesthetics */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A2463]/95 via-[#0A2463]/90 to-[#0A2463]/95 z-10"></div>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center z-0 before:absolute before:inset-0 before:bg-black/30"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A2463]/95 via-[#0A2463]/80 to-[#0A2463]/95 z-10"></div>
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center z-0 before:absolute before:inset-0 before:bg-black/40"></div>
       
       {/* Subtle grain texture overlay */}
       <div className="absolute inset-0 opacity-20 z-5 mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=')]"></div>
       
+      {/* Pattern overlay - adds subtle visual texture */}
+      <div className="absolute inset-0 opacity-15 z-5 mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIvPjwvZz48L3N2Zz4=')]"></div>
+      
       {/* Animated background elements */}
       <motion.div 
-        className="absolute w-64 h-64 rounded-full bg-[#E6AF2E] blur-[100px] top-1/4 -left-20 z-5"
+        className="absolute w-72 h-72 rounded-full bg-[#E6AF2E] blur-[120px] top-1/4 -left-20 z-5"
         variants={glowVariants}
         initial="hidden"
         animate="visible"
       />
       
       <motion.div 
-        className="absolute w-80 h-80 rounded-full bg-[#0A2463] blur-[120px] bottom-1/4 right-0 z-5"
+        className="absolute w-96 h-96 rounded-full bg-[#0A2463] blur-[140px] bottom-1/4 right-0 z-5"
         animate={{ 
           opacity: [0.1, 0.3, 0.1],
           scale: [1, 1.2, 1],
@@ -98,6 +101,21 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
           duration: 8,
           repeat: Infinity,
           repeatType: "reverse",
+        }}
+      />
+      
+      {/* Additional glow element */}
+      <motion.div 
+        className="absolute w-40 h-40 rounded-full bg-white blur-[80px] top-1/3 right-1/4 z-5"
+        animate={{ 
+          opacity: [0.05, 0.1, 0.05],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ 
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+          delay: 1
         }}
       />
       
@@ -118,6 +136,23 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
         transition={{ duration: 1, delay: 0.8 }}
       >
         <i className="fas fa-gavel text-6xl"></i>
+      </motion.div>
+      
+      {/* Decorative law symbols */}
+      <motion.div 
+        className="absolute top-32 right-1/4 text-white opacity-15 z-15 hidden xl:block"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: [0.1, 0.2, 0.1],
+          y: [0, -15, 0]
+        }}
+        transition={{ 
+          duration: 7,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      >
+        <i className="fas fa-bookmark text-5xl"></i>
       </motion.div>
       
       {/* Main content - Significantly enhanced with modern design */}

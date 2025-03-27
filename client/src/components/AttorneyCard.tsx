@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useState } from 'react';
 
 interface AttorneyCardProps {
   image: string;
@@ -14,6 +15,34 @@ interface AttorneyCardProps {
 }
 
 const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Values for the tilt effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  // Transform the motion values to create the tilt effect
+  const rotateX = useTransform(y, [-100, 100], [10, -10]);
+  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
+  
+  // Handle mouse move for the tilt effect
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!isHovered) return;
+    
+    const rect = event.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    
+    const xPct = (mouseX / width - 0.5) * 200;
+    const yPct = (mouseY / height - 0.5) * 200;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+  
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { 
@@ -30,15 +59,20 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
     },
     hover: {
       y: -10,
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.2), 0 15px 15px -5px rgba(0, 0, 0, 0.1)",
       transition: { type: "spring", stiffness: 400, damping: 10 }
     }
   };
 
   const imageVariants = {
+    initial: { 
+      scale: 1,
+      filter: "brightness(0.95)"
+    },
     hover: { 
-      scale: 1.05,
-      transition: { duration: 0.5 }
+      scale: 1.08,
+      filter: "brightness(1.05)",
+      transition: { duration: 0.7, ease: "easeOut" }
     }
   };
 
@@ -75,12 +109,25 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
 
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-lg overflow-hidden group relative"
+      className="bg-white rounded-xl shadow-lg overflow-hidden group relative perspective-1000"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       whileHover="hover"
       viewport={{ once: true, amount: 0.3 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        x.set(0);
+        y.set(0);
+      }}
+      onMouseMove={handleMouseMove}
+      style={{
+        rotateX: isHovered ? rotateX : 0,
+        rotateY: isHovered ? rotateY : 0,
+        transformStyle: "preserve-3d",
+        transition: isHovered ? undefined : "all 0.5s ease-out"
+      }}
     >
       {/* Decorative elements */}
       <motion.div 
@@ -99,13 +146,36 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
         />
       </div>
       
-      <div className="relative overflow-hidden">
-        <motion.img
-          src={image}
-          alt={name}
-          className="w-full h-80 object-cover object-center"
-          variants={imageVariants}
+      {/* 3D Shine Effect */}
+      {isHovered && (
+        <motion.div 
+          className="absolute inset-0 pointer-events-none z-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{
+            background: "linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0) 100%)",
+          }}
         />
+      )}
+      
+      <div className="relative overflow-hidden">
+        <motion.div
+          className="w-full h-80 overflow-hidden"
+          whileHover={{ 
+            boxShadow: "0 10px 25px rgba(10, 36, 99, 0.3)",
+          }}
+        >
+          <motion.img
+            src={image}
+            alt={name}
+            className="w-full h-80 object-cover object-center transition-all duration-700"
+            variants={imageVariants}
+            initial="initial"
+            whileHover="hover"
+          />
+        </motion.div>
         
         <motion.div 
           className="absolute inset-0 bg-gradient-to-t from-[#0A2463]/90 via-[#0A2463]/50 to-transparent flex flex-col justify-end p-6"
@@ -210,11 +280,19 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
           whileInView={{ width: 48 }}
           transition={{ delay: delay + 0.3, duration: 0.5 }}
           viewport={{ once: true }}
+          style={{
+            transform: isHovered ? "translateZ(20px)" : "translateZ(0px)",
+            transition: "transform 0.3s ease-out"
+          }}
         />
         
         <motion.h3 
           className="text-xl font-serif font-bold text-[#0A2463] mb-1 relative inline-block"
           variants={textVariants}
+          style={{
+            transform: isHovered ? "translateZ(40px)" : "translateZ(0px)",
+            transition: "transform 0.3s ease-out"
+          }}
         >
           {name}
           <motion.div 
@@ -228,6 +306,10 @@ const AttorneyCard = ({ image, name, title, bio, socialLinks, delay }: AttorneyC
         <motion.p 
           className="text-[#E6AF2E] font-medium mb-3"
           variants={textVariants}
+          style={{
+            transform: isHovered ? "translateZ(25px)" : "translateZ(0px)",
+            transition: "transform 0.3s ease-out"
+          }}
         >
           {title}
         </motion.p>
