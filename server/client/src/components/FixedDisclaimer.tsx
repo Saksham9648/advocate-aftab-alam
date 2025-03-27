@@ -1,25 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
 const FixedDisclaimer = () => {
-  // State for showing the disclaimer
+  // State for showing the disclaimer - always starts as true
   const [showDisclaimer, setShowDisclaimer] = useState(true);
-  
-  // Check localStorage on component mount
-  useEffect(() => {
-    const hasAccepted = localStorage.getItem("disclaimerAccepted") === "true";
-    if (hasAccepted) {
-      setShowDisclaimer(false);
-    }
-  }, []);
   
   const handleClose = () => {
     setShowDisclaimer(false);
-    
-    // Store in localStorage to prevent showing again in this session
-    localStorage.setItem("disclaimerAccepted", "true");
   };
   
   // Use a higher z-index than anything else
@@ -33,7 +22,7 @@ const FixedDisclaimer = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, delay: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
           />
           
           {/* Popup */}
@@ -42,7 +31,7 @@ const FixedDisclaimer = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.5, delay: 1.1 }} // Add delay to appear after loader
+            transition={{ duration: 0.5, delay: 0.3 }} // Show quickly
           >
             <div className="p-6 relative">
               <Button 
@@ -72,10 +61,11 @@ const FixedDisclaimer = () => {
                   a formal attorney-client relationship.
                 </p>
                 
-                <div className="pt-4 flex justify-center">
+                <div className="pt-6 flex justify-center">
                   <Button 
                     onClick={handleClose}
-                    className="bg-[#E6AF2E] hover:bg-[#d9a429] text-white px-8 py-2 text-base"
+                    className="bg-[#E6AF2E] hover:bg-[#d9a429] text-[#0A2463] font-bold px-10 py-6 text-lg rounded-lg"
+                    style={{ minWidth: '200px', minHeight: '50px' }}
                   >
                     I Understand
                   </Button>
