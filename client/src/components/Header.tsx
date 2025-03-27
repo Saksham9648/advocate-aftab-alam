@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
@@ -18,6 +18,7 @@ const Header = ({ activeSection }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCallbackVisible, setIsCallbackVisible] = useState(false);
+  const [isMenuAnimating, setIsMenuAnimating] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,20 +33,64 @@ const Header = ({ activeSection }: HeaderProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  // Fix for mobile scroll navigation
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      // Get header height dynamically
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.clientHeight : 80;
+      
       const offsetTop = element.offsetTop;
+      
+      // Use smooth scroll with correct offset
       window.scrollTo({
-        top: offsetTop - 80,
+        top: offsetTop - headerHeight,
         behavior: 'smooth'
       });
-      setIsOpen(false);
+      
+      // Close mobile menu after navigation
+      if (isOpen) {
+        setIsMenuAnimating(true);
+        setTimeout(() => {
+          setIsOpen(false);
+          setIsMenuAnimating(false);
+        }, 300);
+      }
     }
-  };
+  }, [isOpen]);
 
   const toggleCallback = () => {
     setIsCallbackVisible(!isCallbackVisible);
+  };
+
+  const toggleMenu = () => {
+    if (!isMenuAnimating) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const navItemVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 10, 
+    },
+    visible: (i: number) => ({ 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: 0.05 * i,
+        duration: 0.2,
+      }
+    }),
+    hover: { 
+      scale: 1.05,
+      backgroundColor: "rgba(230, 175, 46, 0.15)",
+      transition: { type: "spring", stiffness: 400, damping: 10 } 
+    },
+    tap: { 
+      scale: 0.95 
+    }
   };
 
   return (
@@ -66,9 +111,34 @@ const Header = ({ activeSection }: HeaderProps) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="mr-3 w-10 h-10 bg-[#0A2463] text-white flex items-center justify-center rounded-md">
-                <span className="text-[#E6AF2E] font-serif font-bold text-xl">JW</span>
-              </div>
+              <motion.div 
+                className="mr-3 w-10 h-10 bg-[#0A2463] text-white flex items-center justify-center rounded-md relative overflow-hidden"
+                whileHover={{
+                  boxShadow: "0 0 15px rgba(230, 175, 46, 0.6)",
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <motion.span 
+                  className="text-[#E6AF2E] font-serif font-bold text-xl relative z-10"
+                  animate={{ 
+                    rotateY: [0, 360],
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                    repeatDelay: 5
+                  }}
+                >
+                  JW
+                </motion.span>
+                <motion.div 
+                  className="absolute inset-0 bg-[#0A2463]"
+                  whileHover={{
+                    background: "radial-gradient(circle at center, #0A2463 0%, #091d54 100%)"
+                  }}
+                />
+              </motion.div>
               <div className="text-xl font-serif font-bold text-[#0A2463] group-hover:text-[#E6AF2E] transition-colors duration-300">
                 James Wilson <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">Attorney at Law</span>
               </div>
@@ -77,15 +147,19 @@ const Header = ({ activeSection }: HeaderProps) => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center">
               <div className="flex space-x-1">
-                {navSections.map((section) => (
-                  <button
+                {navSections.map((section, i) => (
+                  <motion.button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 relative ${
                       activeSection === section.id 
                         ? 'text-[#0A2463] bg-[#E6AF2E]/10' 
-                        : 'text-[#343A40] hover:text-[#0A2463] hover:bg-gray-100'
+                        : 'text-[#343A40] hover:text-[#0A2463]'
                     }`}
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={navItemVariants}
+                    custom={i}
                   >
                     {section.label}
                     {activeSection === section.id && (
@@ -95,18 +169,30 @@ const Header = ({ activeSection }: HeaderProps) => {
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
               
               <div className="ml-8">
                 <motion.button
                   onClick={toggleCallback}
-                  className="bg-[#E6AF2E] text-[#0A2463] font-medium py-2 px-4 rounded-md shadow hover:bg-[#E6AF2E]/90 transition-colors duration-300 flex items-center"
-                  whileHover={{ scale: 1.02 }}
+                  className="bg-[#E6AF2E] text-[#0A2463] font-medium py-2 px-4 rounded-md shadow-md hover:bg-[#E6AF2E]/90 transition-colors duration-300 flex items-center"
+                  whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: "0 5px 15px rgba(230, 175, 46, 0.4)",
+                  }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <i className="fas fa-phone-alt mr-2"></i>
+                  <motion.i 
+                    className="fas fa-phone-alt mr-2"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: [0, 20, -20, 0] }}
+                    transition={{ 
+                      duration: 0.5, 
+                      repeat: Infinity, 
+                      repeatDelay: 3 
+                    }}
+                  ></motion.i>
                   <span>Request Callback</span>
                 </motion.button>
               </div>
@@ -117,19 +203,41 @@ const Header = ({ activeSection }: HeaderProps) => {
               <motion.button
                 onClick={toggleCallback}
                 className="bg-[#E6AF2E] text-[#0A2463] font-medium py-1.5 px-3 rounded-md shadow hover:bg-[#E6AF2E]/90 transition-colors duration-300 mr-3 text-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 4px 10px rgba(230, 175, 46, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                <i className="fas fa-phone-alt"></i>
+                <motion.i 
+                  className="fas fa-phone-alt"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: [0, 20, -20, 0] }}
+                  transition={{ 
+                    duration: 0.5, 
+                    repeat: Infinity, 
+                    repeatDelay: 3 
+                  }}
+                ></motion.i>
               </motion.button>
               
-              <button 
-                onClick={() => setIsOpen(!isOpen)}
-                className="bg-gray-100 w-10 h-10 rounded-md flex items-center justify-center text-[#343A40] focus:outline-none"
+              <motion.button 
+                onClick={toggleMenu}
+                className="bg-gray-100 w-10 h-10 rounded-md flex items-center justify-center text-[#343A40] focus:outline-none overflow-hidden"
+                whileHover={{ backgroundColor: "#f3f4f6" }}
+                whileTap={{ scale: 0.95 }}
                 aria-label="Open main menu"
               >
-                <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-lg`}></i>
-              </button>
+                <motion.i 
+                  className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-lg`}
+                  initial={false}
+                  animate={{ 
+                    rotate: isOpen ? 90 : 0,
+                    scale: isOpen ? 1.1 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                ></motion.i>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -138,16 +246,27 @@ const Header = ({ activeSection }: HeaderProps) => {
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="lg:hidden bg-white border-t border-gray-100 shadow-lg"
+              className="lg:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
               <div className="container mx-auto px-4 py-3">
-                <nav className="grid grid-cols-2 gap-2 py-2">
-                  {navSections.map((section) => (
-                    <button
+                <motion.nav 
+                  className="grid grid-cols-2 gap-2 py-2"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.07
+                      }
+                    }
+                  }}
+                >
+                  {navSections.map((section, i) => (
+                    <motion.button
                       key={section.id}
                       onClick={() => scrollToSection(section.id)}
                       className={`py-3 px-4 rounded-md text-left ${
@@ -155,16 +274,26 @@ const Header = ({ activeSection }: HeaderProps) => {
                           ? 'bg-[#E6AF2E]/10 text-[#0A2463] font-medium' 
                           : 'hover:bg-gray-50'
                       }`}
+                      variants={navItemVariants}
+                      custom={i}
+                      whileHover="hover"
+                      whileTap="tap"
                     >
                       <div className="flex items-center">
                         {activeSection === section.id && (
-                          <motion.div className="w-1 h-5 bg-[#E6AF2E] mr-2 rounded-full" layoutId="mobileActiveSection" />
+                          <motion.div 
+                            className="w-1 h-5 bg-[#E6AF2E] mr-2 rounded-full" 
+                            layoutId="mobileActiveSection"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          />
                         )}
                         {section.label}
                       </div>
-                    </button>
+                    </motion.button>
                   ))}
-                </nav>
+                </motion.nav>
               </div>
             </motion.div>
           )}
@@ -182,27 +311,58 @@ const Header = ({ activeSection }: HeaderProps) => {
           >
             <motion.div
               className="bg-white rounded-lg shadow-2xl w-full max-w-md relative overflow-hidden"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 20 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25 }}
             >
-              <div className="bg-[#0A2463] h-2 w-full"></div>
+              <motion.div 
+                className="bg-[#0A2463] h-2 w-full"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              ></motion.div>
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl font-serif font-bold text-[#0A2463]">
+                  <motion.h2 
+                    className="text-2xl font-serif font-bold text-[#0A2463]"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                  >
                     Request a Callback
-                  </h2>
-                  <button 
+                  </motion.h2>
+                  <motion.button 
                     onClick={toggleCallback}
                     className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
                   >
                     <i className="fas fa-times text-xl"></i>
-                  </button>
+                  </motion.button>
                 </div>
                 
-                <form className="space-y-4">
-                  <div>
+                <motion.form 
+                  className="space-y-4"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.3
+                      }
+                    }
+                  }}
+                >
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                  >
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       Full Name*
                     </label>
@@ -213,9 +373,14 @@ const Header = ({ activeSection }: HeaderProps) => {
                       placeholder="John Doe"
                       required
                     />
-                  </div>
+                  </motion.div>
                   
-                  <div>
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                  >
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number*
                     </label>
@@ -226,9 +391,14 @@ const Header = ({ activeSection }: HeaderProps) => {
                       placeholder="(123) 456-7890"
                       required
                     />
-                  </div>
+                  </motion.div>
                   
-                  <div>
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                  >
                     <label htmlFor="preferred-time" className="block text-sm font-medium text-gray-700 mb-1">
                       Preferred Time
                     </label>
@@ -241,9 +411,14 @@ const Header = ({ activeSection }: HeaderProps) => {
                       <option value="afternoon">Afternoon (12PM - 4PM)</option>
                       <option value="evening">Evening (4PM - 6PM)</option>
                     </select>
-                  </div>
+                  </motion.div>
                   
-                  <div>
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                  >
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       Brief Description
                     </label>
@@ -253,17 +428,27 @@ const Header = ({ activeSection }: HeaderProps) => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
                       placeholder="How can we help you?"
                     ></textarea>
-                  </div>
+                  </motion.div>
                   
-                  <div>
-                    <button
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                  >
+                    <motion.button
                       type="submit"
                       className="w-full bg-[#E6AF2E] hover:bg-yellow-500 text-[#0A2463] font-bold py-2.5 px-4 rounded-md transition-colors duration-300 shadow-lg"
+                      whileHover={{ 
+                        scale: 1.02,
+                        boxShadow: "0 5px 15px rgba(230, 175, 46, 0.4)",
+                      }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       Request Callback
-                    </button>
-                  </div>
-                </form>
+                    </motion.button>
+                  </motion.div>
+                </motion.form>
               </div>
             </motion.div>
           </motion.div>

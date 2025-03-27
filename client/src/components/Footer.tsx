@@ -11,7 +11,16 @@ const Footer = () => {
     }
   };
 
-  const footerLinks = [
+  type FooterLink = 
+    | { label: string; section: string; href?: never; }
+    | { label: string; href: string; section?: never; };
+
+  type FooterColumn = {
+    title: string;
+    links: FooterLink[];
+  };
+
+  const footerLinks: FooterColumn[] = [
     { 
       title: 'Services',
       links: [
