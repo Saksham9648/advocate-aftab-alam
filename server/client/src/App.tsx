@@ -69,6 +69,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Disclaimer Popup - Placed at the top level to ensure it's always visible */}
+      <DisclaimerPopup />
+
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
@@ -97,7 +100,7 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <span className="text-[#E6AF2E] mr-2">James Wilson</span> 
+                <span className="text-[#E6AF2E] mr-2">Aftab Alam</span> 
                 <span>Law Firm</span>
               </motion.div>
             </motion.div>
@@ -111,7 +114,6 @@ function App() {
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <DisclaimerPopup />
         <Header activeSection={activeSection} />
         
         <HeroSection registerSection={registerSection} />
