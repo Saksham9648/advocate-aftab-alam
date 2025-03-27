@@ -16,8 +16,8 @@ const contactFormSchema = z.object({
   phone: z.string().optional(),
   service: z.string().optional(),
   message: z.string().min(10, { message: "Message must be at least 10 characters" }),
-  privacy: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the privacy policy" }),
+  privacy: z.boolean().refine(val => val === true, {
+    message: "You must accept the privacy policy",
   }),
 });
 
@@ -102,7 +102,7 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Office Address</h4>
-                    <p>123 Legal Avenue, Suite 500<br />New York, NY 10001</p>
+                    <p>Law Office Of Aftab Alam Ansari Advocate<br />Lakhimpur Kheri, Uttar Pradesh, India</p>
                   </div>
                 </div>
                 
@@ -112,7 +112,8 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Phone</h4>
-                    <a href="tel:+12125551234" className="hover:text-[#E6AF2E] transition-colors duration-300">(212) 555-1234</a>
+                    <a href="tel:+919005505557" className="hover:text-[#E6AF2E] transition-colors duration-300">+91 9005505557</a><br/>
+                    <a href="tel:+918299429974" className="hover:text-[#E6AF2E] transition-colors duration-300">+91 8299429974</a>
                   </div>
                 </div>
                 
@@ -122,7 +123,8 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Email</h4>
-                    <a href="mailto:james@wilsonlaw.com" className="hover:text-[#E6AF2E] transition-colors duration-300">james@wilsonlaw.com</a>
+                    <a href="mailto:aftabalamanasari1987@gmail.com" className="hover:text-[#E6AF2E] transition-colors duration-300">aftabalamanasari1987@gmail.com</a><br/>
+                    <a href="mailto:aftab8490@live.com" className="hover:text-[#E6AF2E] transition-colors duration-300">aftab8490@live.com</a>
                   </div>
                 </div>
                 
@@ -132,7 +134,7 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Office Hours</h4>
-                    <p>Monday - Friday: 9:00 AM - 5:00 PM<br />Saturday - Sunday: Closed</p>
+                    <p>Monday - Saturday: 10:00 AM - 8:00 PM<br />Sunday: By Appointment Only</p>
                   </div>
                 </div>
               </div>
@@ -210,12 +212,12 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
                 >
                   <option value="">Select a service</option>
-                  <option value="corporate">Corporate Law</option>
-                  <option value="litigation">Litigation</option>
+                  <option value="criminal">Criminal Law</option>
+                  <option value="business">Business Law</option>
+                  <option value="family">Family & Marriage Laws</option>
+                  <option value="protection">Protection Laws</option>
+                  <option value="cyber">Cyber Law</option>
                   <option value="intellectual-property">Intellectual Property</option>
-                  <option value="real-estate">Real Estate Law</option>
-                  <option value="estate-planning">Estate Planning</option>
-                  <option value="employment">Employment Law</option>
                   <option value="other">Other</option>
                 </select>
               </div>

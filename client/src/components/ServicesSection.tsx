@@ -8,69 +8,69 @@ interface ServicesSectionProps {
 
 const services = [
   {
-    icon: "fas fa-building",
-    title: "Corporate Law",
-    description: "Comprehensive legal solutions for businesses of all sizes, from formation to complex transactions and compliance.",
+    icon: "fas fa-gavel",
+    title: "Criminal Law",
+    description: "Criminal law governs crimes, prescribing conduct that threatens public safety and welfare, focusing on punishment and rehabilitation.",
     items: [
-      "Business Formation & Structuring",
-      "Contract Drafting & Negotiation",
-      "Mergers & Acquisitions",
-      "Corporate Governance"
+      "Criminal Defense",
+      "Bail Conditions",
+      "Legal Representation",
+      "Criminal Case Handling"
     ]
   },
   {
-    icon: "fas fa-gavel",
-    title: "Litigation",
-    description: "Strategic representation in court proceedings with a proven track record of successful outcomes for clients.",
+    icon: "fas fa-briefcase",
+    title: "Business Law",
+    description: "Corporate law governs the rights, relations, and conduct of businesses and organizations, ensuring legal compliance.",
     items: [
-      "Civil Litigation",
-      "Commercial Disputes",
-      "Alternative Dispute Resolution",
-      "Appellate Advocacy"
+      "Business Formation",
+      "Corporate Governance",
+      "Legal Compliance",
+      "Business Disputes"
+    ]
+  },
+  {
+    icon: "fas fa-user-friends",
+    title: "Family & Marriage Laws",
+    description: "Specialized legal services for family matters including marriage, divorce, custody, and inheritance issues.",
+    items: [
+      "Muslim Personal Law",
+      "Special Marriage Act",
+      "Hindu Marriage Act",
+      "Matrimonial Disputes"
+    ]
+  },
+  {
+    icon: "fas fa-shield-alt",
+    title: "Protection Laws",
+    description: "Legal protection for individuals facing harassment, violence, or rights violations, with focus on safety and justice.",
+    items: [
+      "Dowry & Domestic Violence",
+      "Bail Conditions",
+      "Child Custody",
+      "Protection Orders"
+    ]
+  },
+  {
+    icon: "fas fa-laptop",
+    title: "Cyber Law",
+    description: "Legal services addressing digital crimes, online privacy, and electronic communications in an increasingly connected world.",
+    items: [
+      "Digital Crime Defense",
+      "Online Privacy Protection",
+      "Electronic Evidence Handling",
+      "Cyber Security Compliance"
     ]
   },
   {
     icon: "fas fa-lightbulb",
     title: "Intellectual Property",
-    description: "Protection and enforcement of your intellectual property rights in an increasingly competitive marketplace.",
+    description: "Protection and enforcement of intellectual property rights including patents, trademarks, and copyrights.",
     items: [
-      "Trademark Registration & Protection",
-      "Copyright Law",
-      "IP Licensing & Transactions",
-      "IP Litigation & Enforcement"
-    ]
-  },
-  {
-    icon: "fas fa-home",
-    title: "Real Estate Law",
-    description: "Comprehensive legal guidance for all aspects of real estate transactions and property law matters.",
-    items: [
-      "Residential & Commercial Transactions",
-      "Lease Agreements",
-      "Property Disputes",
-      "Zoning & Land Use"
-    ]
-  },
-  {
-    icon: "fas fa-file-contract",
-    title: "Estate Planning",
-    description: "Personalized estate planning solutions to protect your assets and provide for your loved ones.",
-    items: [
-      "Wills & Trusts",
-      "Power of Attorney",
-      "Probate Administration",
-      "Asset Protection Strategies"
-    ]
-  },
-  {
-    icon: "fas fa-balance-scale",
-    title: "Employment Law",
-    description: "Expert guidance on employment matters for both employers and employees in today's complex legal landscape.",
-    items: [
-      "Employment Contracts",
-      "Workplace Discrimination",
-      "Wrongful Termination",
-      "HR Policy Development"
+      "Trademark Registration",
+      "Copyright Protection",
+      "IP Licensing",
+      "IP Litigation"
     ]
   }
 ];

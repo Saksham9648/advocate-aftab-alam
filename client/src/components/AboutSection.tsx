@@ -28,9 +28,9 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
   };
 
   const statsItems = [
-    { icon: "fa-user-graduate", title: "Education", details: "LLB from Mumbai University", subDetails: "AIBE Qualified Advocate" },
-    { icon: "fa-gavel", title: "Experience", details: "10+ Years of Practice", subDetails: "300+ Cases Handled" },
-    { icon: "fa-award", title: "Recognition", details: "Expert in Criminal & Civil Law", subDetails: "Bar Council of India Member" },
+    { icon: "fa-user-graduate", title: "Education", details: "LLB Graduate", subDetails: "AIBE Qualified Advocate" },
+    { icon: "fa-gavel", title: "Experience", details: "14+ Years of Practice", subDetails: "80+ Criminal Cases Handled" },
+    { icon: "fa-award", title: "Recognition", details: "Expert in Criminal, Civil & IP Law", subDetails: "Best Law Office of Aftab Alam Ansari" },
   ];
 
   return (
@@ -159,7 +159,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              With over 10 years of experience, I've established a reputation for providing exceptional legal representation and counsel to individuals and businesses across a wide range of practice areas including criminal law, civil disputes, and family law.
+              Founded in February 2013, the Best Law Office of Aftab Alam Ansari offers specialized legal services in Criminal, Civil, and IP Law, focusing on minimizing proceedings and maximizing protection for our clients.
             </motion.p>
             
             <motion.p 
@@ -168,7 +168,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              After graduating with my law degree from Mumbai University, I began my career at a renowned law firm, where I quickly developed expertise in various legal domains. My approach combines rigorous legal analysis with a deep commitment to understanding each client's unique circumstances and providing personalized legal solutions.
+              Our firm uses secure ERP and IMS systems to manage cases efficiently, representing clients in Criminal and Civil matters across Lakhimpur Kheri and Lucknow. With over 14 years of experience, we handle a wide range of legal matters including Family & Marriage Laws and Criminal & Protection Laws.
             </motion.p>
             
             <motion.div 
