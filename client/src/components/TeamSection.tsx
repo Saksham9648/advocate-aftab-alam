@@ -29,7 +29,7 @@ const attorneys = [
     }
   },
   {
-    image: "/assets/michael_chen.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     name: "Michael Chen",
     title: "Partner",
     bio: "Michael's expertise in real estate law and estate planning has helped numerous clients protect their assets and secure their futures. Columbia Law School graduate with 10 years of experience.",
