@@ -73,8 +73,12 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
       className="relative min-h-screen flex items-center text-white overflow-hidden"
     >
       {/* Background elements */}
-      <div className="absolute inset-0 bg-[#0A2463] opacity-90 z-10"></div>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center z-0"></div>
+      {/* Enhanced background with gradient overlay for better aesthetics */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A2463]/95 via-[#0A2463]/90 to-[#0A2463]/95 z-10"></div>
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center z-0 before:absolute before:inset-0 before:bg-black/30"></div>
+      
+      {/* Subtle grain texture overlay */}
+      <div className="absolute inset-0 opacity-20 z-5 mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=')]"></div>
       
       {/* Animated background elements */}
       <motion.div 
@@ -258,37 +262,42 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
         </div>
       </div>
       
-      {/* Scroll down indicator - adjusted z-index and positioning for mobile screens */}
+      {/* Scroll down indicator - simplified with just the button */}
       <motion.div 
-        className="absolute bottom-28 md:bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center pointer-events-auto"
+        className="absolute bottom-16 md:bottom-10 left-1/2 transform -translate-x-1/2 z-30 pointer-events-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
       >
-        <motion.div className="bg-[#0A2463]/50 backdrop-blur-sm px-3 py-1 rounded-full">
-          <motion.span 
-            className="text-sm text-white"
-            animate={{ opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Scroll Down
-          </motion.span>
-        </motion.div>
         <motion.button
           onClick={() => scrollToSection('about')}
-          className="w-12 h-12 mt-2 rounded-full border-2 border-white/70 bg-[#0A2463]/50 backdrop-blur-sm flex items-center justify-center hover:border-[#E6AF2E] transition-colors duration-300 shadow-lg"
-          animate={{ y: [0, 5, 0] }}
+          className="w-14 h-14 rounded-full border-2 border-white/80 bg-[#0A2463]/60 backdrop-blur-sm flex items-center justify-center shadow-lg"
+          animate={{ 
+            y: [0, 5, 0],
+            boxShadow: ["0 4px 12px rgba(10, 36, 99, 0.3)", "0 6px 16px rgba(10, 36, 99, 0.4)", "0 4px 12px rgba(10, 36, 99, 0.3)"]
+          }}
           transition={{ 
             repeat: Infinity, 
-            duration: 1.5,
+            duration: 2,
             repeatType: "loop" 
           }}
           whileHover={{ 
+            scale: 1.1,
             borderColor: "#E6AF2E",
-            backgroundColor: "rgba(230, 175, 46, 0.2)" 
+            backgroundColor: "rgba(230, 175, 46, 0.3)" 
           }}
+          whileTap={{ scale: 0.95 }}
         >
-          <i className="fas fa-chevron-down text-lg text-white"></i>
+          <motion.i 
+            className="fas fa-chevron-down text-xl text-white"
+            animate={{ y: [0, 2, 0] }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 1.5,
+              repeatType: "loop",
+              delay: 0.2
+            }}
+          />
         </motion.button>
       </motion.div>
     </section>

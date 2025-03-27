@@ -246,59 +246,140 @@ const Header = ({ activeSection }: HeaderProps) => {
           </div>
         </div>
         
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Redesigned for better user experience */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="lg:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-end"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="container mx-auto px-4 py-3">
-                <motion.nav 
-                  className="grid grid-cols-2 gap-2 py-2"
-                  initial="hidden"
-                  animate="visible"
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.07
-                      }
-                    }
-                  }}
-                >
-                  {navSections.map((section, i) => (
+              {/* Close button for mobile menu */}
+              <motion.button
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
+                onClick={toggleMenu}
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <i className="fas fa-times text-xl"></i>
+              </motion.button>
+              
+              <motion.div 
+                className="w-full bg-white rounded-t-2xl shadow-2xl overflow-hidden"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ 
+                  type: "spring", 
+                  damping: 25, 
+                  stiffness: 300
+                }}
+              >
+                <div className="w-1/3 h-1 bg-gray-300 mx-auto my-3 rounded-full"></div>
+                
+                <div className="p-6 pt-2">
+                  <motion.div
+                    className="mb-6 pb-4 border-b border-gray-100"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <h3 className="text-lg font-serif font-bold text-[#0A2463] mb-1">James Wilson</h3>
+                    <p className="text-sm text-gray-500">Attorney at Law</p>
+                  </motion.div>
+                  
+                  <nav className="mb-6">
+                    <ul className="space-y-4">
+                      {navSections.map((section, i) => (
+                        <motion.li
+                          key={section.id}
+                          variants={{
+                            hidden: { opacity: 0, x: -20 },
+                            visible: { 
+                              opacity: 1, 
+                              x: 0,
+                              transition: {
+                                delay: 0.1 + (i * 0.05)
+                              }
+                            }
+                          }}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          <motion.button
+                            onClick={() => scrollToSection(section.id)}
+                            className={`flex items-center w-full py-3 pl-4 pr-6 rounded-xl ${
+                              activeSection === section.id 
+                                ? 'bg-[#0A2463] text-white font-medium' 
+                                : 'text-[#0A2463] hover:bg-gray-50'
+                            }`}
+                            whileHover={{ x: 5 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <motion.div 
+                              className="w-8 h-8 rounded-lg bg-white/80 flex items-center justify-center mr-4 shadow-sm"
+                              whileHover={{ scale: 1.1, rotate: 5 }}
+                            >
+                              <i className={`fas ${
+                                section.id === 'about' ? 'fa-user' :
+                                section.id === 'services' ? 'fa-briefcase' :
+                                section.id === 'team' ? 'fa-users' :
+                                section.id === 'testimonials' ? 'fa-quote-right' :
+                                section.id === 'clients' ? 'fa-handshake' :
+                                section.id === 'contact' ? 'fa-envelope' : 'fa-circle'
+                              } ${activeSection === section.id ? 'text-[#E6AF2E]' : 'text-[#0A2463]'}`}></i>
+                            </motion.div>
+                            <span className={activeSection === section.id ? 'text-white' : 'text-[#0A2463]'}>
+                              {section.label}
+                            </span>
+                            {activeSection === section.id && (
+                              <motion.div 
+                                className="ml-auto"
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <i className="fas fa-check-circle text-[#E6AF2E]"></i>
+                              </motion.div>
+                            )}
+                          </motion.button>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </nav>
+                  
+                  <motion.div
+                    className="pt-4 border-t border-gray-100"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
                     <motion.button
-                      key={section.id}
-                      onClick={() => scrollToSection(section.id)}
-                      className={`py-3 px-4 rounded-md text-left ${
-                        activeSection === section.id 
-                          ? 'bg-[#E6AF2E]/10 text-[#0A2463] font-medium' 
-                          : 'hover:bg-gray-50'
-                      }`}
-                      variants={navItemVariants}
-                      custom={i}
-                      whileHover="hover"
-                      whileTap="tap"
+                      onClick={toggleCallback}
+                      className="w-full bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center gap-2"
+                      whileHover={{ 
+                        scale: 1.02,
+                        boxShadow: "0 5px 15px rgba(230, 175, 46, 0.3)"
+                      }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <div className="flex items-center">
-                        {activeSection === section.id && (
-                          <motion.div 
-                            className="w-1 h-5 bg-[#E6AF2E] mr-2 rounded-full" 
-                            layoutId="mobileActiveSection"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          />
-                        )}
-                        {section.label}
-                      </div>
+                      <motion.i 
+                        className="fas fa-phone-alt"
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: [0, 15, -15, 0] }}
+                        transition={{ 
+                          duration: 0.5,
+                          repeat: Infinity,
+                          repeatDelay: 3
+                        }}
+                      ></motion.i>
+                      <span>Request Callback</span>
                     </motion.button>
-                  ))}
-                </motion.nav>
-              </div>
+                  </motion.div>
+                </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
