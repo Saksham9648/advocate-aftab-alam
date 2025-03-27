@@ -33,21 +33,25 @@ const Header = ({ activeSection }: HeaderProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fix for mobile scroll navigation
+  // Fix for mobile scroll navigation with improved accuracy
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Get header height dynamically
+      // Get header height dynamically with a small additional offset for better positioning
       const header = document.querySelector('header');
-      const headerHeight = header ? header.clientHeight : 80;
+      // Add additional offset for mobile devices (20px) or standard offset for desktop (10px)
+      const additionalOffset = window.innerWidth < 768 ? 20 : 10;
+      const headerHeight = header ? header.clientHeight + additionalOffset : 90;
       
       const offsetTop = element.offsetTop;
       
-      // Use smooth scroll with correct offset
-      window.scrollTo({
-        top: offsetTop - headerHeight,
-        behavior: 'smooth'
-      });
+      // Use smooth scroll with correct offset and a small delay to ensure the UI is ready
+      setTimeout(() => {
+        window.scrollTo({
+          top: offsetTop - headerHeight,
+          behavior: 'smooth'
+        });
+      }, 50);
       
       // Close mobile menu after navigation
       if (isOpen) {

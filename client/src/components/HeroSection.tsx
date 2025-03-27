@@ -215,9 +215,9 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
             </motion.button>
           </motion.div>
           
-          {/* Feature cards */}
+          {/* Feature cards - with improved spacing for mobile */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12"
+            className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-8 px-2 max-w-md md:max-w-full mx-auto"
             initial="hidden"
             animate="visible"
             variants={{
@@ -238,14 +238,19 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 flex items-center justify-center gap-3"
+                className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-4 flex items-center justify-center gap-3 shadow-lg"
                 variants={{
                   hidden: { y: 20, opacity: 0 },
                   visible: { y: 0, opacity: 1 }
                 }}
                 whileHover={{ y: -5, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
               >
-                <i className={`fas ${item.icon} text-[#E6AF2E]`}></i>
+                <motion.div 
+                  className="w-8 h-8 rounded-full bg-[#E6AF2E]/20 flex items-center justify-center text-[#E6AF2E]"
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(230, 175, 46, 0.3)" }}
+                >
+                  <i className={`fas ${item.icon}`}></i>
+                </motion.div>
                 <span className="font-medium">{item.text}</span>
               </motion.div>
             ))}
@@ -253,23 +258,25 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
         </div>
       </div>
       
-      {/* Scroll down indicator */}
+      {/* Scroll down indicator - adjusted z-index and positioning for mobile screens */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center"
+        className="absolute bottom-28 md:bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center pointer-events-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
       >
-        <motion.span 
-          className="text-sm mb-2 text-white/80"
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          Scroll Down
-        </motion.span>
+        <motion.div className="bg-[#0A2463]/50 backdrop-blur-sm px-3 py-1 rounded-full">
+          <motion.span 
+            className="text-sm text-white"
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Scroll Down
+          </motion.span>
+        </motion.div>
         <motion.button
           onClick={() => scrollToSection('about')}
-          className="w-10 h-10 rounded-full border-2 border-white/50 flex items-center justify-center hover:border-[#E6AF2E] transition-colors duration-300"
+          className="w-12 h-12 mt-2 rounded-full border-2 border-white/70 bg-[#0A2463]/50 backdrop-blur-sm flex items-center justify-center hover:border-[#E6AF2E] transition-colors duration-300 shadow-lg"
           animate={{ y: [0, 5, 0] }}
           transition={{ 
             repeat: Infinity, 
@@ -278,10 +285,10 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
           }}
           whileHover={{ 
             borderColor: "#E6AF2E",
-            backgroundColor: "rgba(255, 255, 255, 0.1)" 
+            backgroundColor: "rgba(230, 175, 46, 0.2)" 
           }}
         >
-          <i className="fas fa-chevron-down text-lg"></i>
+          <i className="fas fa-chevron-down text-lg text-white"></i>
         </motion.button>
       </motion.div>
     </section>
