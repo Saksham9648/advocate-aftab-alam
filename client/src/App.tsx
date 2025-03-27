@@ -97,8 +97,8 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <span className="text-[#E6AF2E] mr-2">James Wilson</span> 
-                <span>Law Firm</span>
+                <span className="text-[#E6AF2E] mr-2">Advocate Aftab</span> 
+                <span>Alam</span>
               </motion.div>
             </motion.div>
           </motion.div>
