@@ -13,9 +13,7 @@ import TestimonialsSection from "./components/TestimonialsSection";
 import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import DisclaimerPopup from "./components/DisclaimerPopup";
-import TestPopup from "./components/test/TestPopup";
-import SimpleDisclaimer from "./components/SimpleDisclaimer";
+import NewDisclaimer from "./components/NewDisclaimer";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -71,14 +69,8 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Simple disclaimer without animations */}
-      <SimpleDisclaimer />
-      
-      {/* Test popup to verify that popups are working */}
-      <TestPopup />
-      
-      {/* Original Disclaimer Popup - commented out for now */}
-      {/* <DisclaimerPopup /> */}
+      {/* Legal Disclaimer Popup */}
+      <NewDisclaimer />
 
       {/* Loading overlay */}
       <AnimatePresence>
