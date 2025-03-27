@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/context/ThemeContext';
-import ThemeToggle from '@/components/ThemeToggle';
 
 interface HeaderProps {
   activeSection: string;
@@ -102,14 +100,9 @@ const Header = ({ activeSection }: HeaderProps) => {
   return (
     <>
       <motion.header 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 theme-transition ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled ? 'py-2' : 'py-4'
-        } theme-transition`}
-        style={{
-          backgroundColor: 'var(--header-bg)',
-          backdropFilter: 'blur(10px)',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-        }}
+        } bg-white backdrop-blur-lg bg-opacity-95 shadow-lg`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -150,9 +143,8 @@ const Header = ({ activeSection }: HeaderProps) => {
                   }}
                 />
               </motion.div>
-              <div className="text-xl font-serif font-bold theme-transition group-hover:text-[#E6AF2E] transition-colors duration-300"
-                style={{ color: 'var(--text-primary)' }}>
-                James Wilson <span className="hidden md:inline text-sm font-sans font-normal opacity-70 theme-transition">Attorney at Law</span>
+              <div className="text-xl font-serif font-bold text-[#0A2463] group-hover:text-[#E6AF2E] transition-colors duration-300">
+                James Wilson <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">Attorney at Law</span>
               </div>
             </motion.button>
             
@@ -163,16 +155,11 @@ const Header = ({ activeSection }: HeaderProps) => {
                   <motion.button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 relative theme-transition ${
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 relative ${
                       activeSection === section.id 
-                        ? 'bg-[#E6AF2E]/10' 
-                        : 'hover:text-[#0A2463]'
+                        ? 'text-[#0A2463] bg-[#E6AF2E]/10' 
+                        : 'text-[#343A40] hover:text-[#0A2463]'
                     }`}
-                    style={{
-                      color: activeSection === section.id 
-                        ? 'var(--text-primary)' 
-                        : 'var(--text-secondary)'
-                    }}
                     whileHover="hover"
                     whileTap="tap"
                     variants={navItemVariants}
@@ -240,11 +227,7 @@ const Header = ({ activeSection }: HeaderProps) => {
               
               <motion.button 
                 onClick={toggleMenu}
-                className="w-10 h-10 rounded-md flex items-center justify-center focus:outline-none overflow-hidden theme-transition"
-                style={{ 
-                  backgroundColor: 'var(--menu-button-bg)', 
-                  color: 'var(--text-secondary)' 
-                }}
+                className="w-10 h-10 rounded-md flex items-center justify-center focus:outline-none overflow-hidden bg-slate-100 text-[#0A2463]"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Open main menu"
@@ -262,10 +245,7 @@ const Header = ({ activeSection }: HeaderProps) => {
             </div>
           </div>
           
-          {/* Theme toggle that displays on both mobile and desktop*/}
-          <div className="fixed bottom-4 right-4 lg:static lg:ml-4 z-50">
-            <ThemeToggle />
-          </div>
+
         </div>
         
         {/* Enhanced Mobile Navigation Menu */}
@@ -412,8 +392,7 @@ const Header = ({ activeSection }: HeaderProps) => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="rounded-lg shadow-2xl w-full max-w-md relative overflow-hidden theme-transition"
-              style={{ backgroundColor: 'var(--card-bg)' }}
+              className="rounded-lg shadow-2xl w-full max-w-md relative overflow-hidden bg-white"
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -428,8 +407,7 @@ const Header = ({ activeSection }: HeaderProps) => {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
                   <motion.h2 
-                    className="text-2xl font-serif font-bold theme-transition"
-                    style={{ color: 'var(--text-primary)' }}
+                    className="text-2xl font-serif font-bold text-[#0A2463]"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.3 }}
@@ -467,7 +445,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                       visible: { opacity: 1, y: 0 }
                     }}
                   >
-                    <label htmlFor="name" className="block text-sm font-medium mb-1 theme-transition" style={{ color: 'var(--text-secondary)' }}>
+                    <label htmlFor="name" className="block text-sm font-medium mb-1 text-gray-600">
                       Full Name*
                     </label>
                     <input
@@ -485,7 +463,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                       visible: { opacity: 1, y: 0 }
                     }}
                   >
-                    <label htmlFor="phone" className="block text-sm font-medium mb-1 theme-transition" style={{ color: 'var(--text-secondary)' }}>
+                    <label htmlFor="phone" className="block text-sm font-medium mb-1 text-gray-600">
                       Phone Number*
                     </label>
                     <input
@@ -503,7 +481,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                       visible: { opacity: 1, y: 0 }
                     }}
                   >
-                    <label htmlFor="preferred-time" className="block text-sm font-medium mb-1 theme-transition" style={{ color: 'var(--text-secondary)' }}>
+                    <label htmlFor="preferred-time" className="block text-sm font-medium mb-1 text-gray-600">
                       Preferred Time
                     </label>
                     <select
@@ -523,7 +501,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                       visible: { opacity: 1, y: 0 }
                     }}
                   >
-                    <label htmlFor="message" className="block text-sm font-medium mb-1 theme-transition" style={{ color: 'var(--text-secondary)' }}>
+                    <label htmlFor="message" className="block text-sm font-medium mb-1 text-gray-600">
                       Brief Description
                     </label>
                     <textarea

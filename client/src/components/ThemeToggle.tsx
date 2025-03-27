@@ -18,7 +18,7 @@ const ThemeToggle: React.FC = () => {
   return (
     <motion.button
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-      className={`relative rounded-full p-2 w-11 h-11 flex items-center justify-center theme-transition ${
+      className={`relative rounded-full p-2 w-11 h-11 flex items-center justify-center ${
         isDark ? 'bg-gray-800 text-yellow-300' : 'bg-blue-50 text-[#0A2463]'
       }`}
       onClick={toggleTheme}

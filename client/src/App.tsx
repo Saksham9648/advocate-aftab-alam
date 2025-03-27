@@ -3,7 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeProvider } from "./context/ThemeContext";
+
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
@@ -69,65 +69,63 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        {/* Loading overlay */}
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div 
-              className="fixed inset-0 bg-[#0A2463] z-[100] flex items-center justify-center"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+      {/* Loading overlay */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            className="fixed inset-0 bg-[#0A2463] z-[100] flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              className="flex flex-col items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
-              <motion.div
-                className="flex flex-col items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex items-center justify-center mb-4">
-                  <motion.div 
-                    className="w-16 h-16 rounded-full border-4 border-[#E6AF2E] border-t-transparent"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  />
-                </div>
+              <div className="flex items-center justify-center mb-4">
                 <motion.div 
-                  className="text-xl font-serif text-white/90 flex items-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <span className="text-[#E6AF2E] mr-2">James Wilson</span> 
-                  <span>Law Firm</span>
-                </motion.div>
+                  className="w-16 h-16 rounded-full border-4 border-[#E6AF2E] border-t-transparent"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                />
+              </div>
+              <motion.div 
+                className="text-xl font-serif text-white/90 flex items-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <span className="text-[#E6AF2E] mr-2">James Wilson</span> 
+                <span>Law Firm</span>
               </motion.div>
             </motion.div>
-          )}
-        </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <motion.div 
-          className="min-h-screen font-sans antialiased theme-transition overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoading ? 0 : 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <DisclaimerPopup />
-          <Header activeSection={activeSection} />
-          
-          <HeroSection registerSection={registerSection} />
-          <AboutSection registerSection={registerSection} />
-          <ServicesSection registerSection={registerSection} />
-          <TeamSection registerSection={registerSection} />
-          <TestimonialsSection registerSection={registerSection} />
-          <ClientsSection registerSection={registerSection} />
-          <ContactSection registerSection={registerSection} />
-          
-          <Footer />
-          <ScrollToTop />
-        </motion.div>
-        <Toaster />
-      </ThemeProvider>
+      <motion.div 
+        className="min-h-screen font-sans antialiased bg-white overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <DisclaimerPopup />
+        <Header activeSection={activeSection} />
+        
+        <HeroSection registerSection={registerSection} />
+        <AboutSection registerSection={registerSection} />
+        <ServicesSection registerSection={registerSection} />
+        <TeamSection registerSection={registerSection} />
+        <TestimonialsSection registerSection={registerSection} />
+        <ClientsSection registerSection={registerSection} />
+        <ContactSection registerSection={registerSection} />
+        
+        <Footer />
+        <ScrollToTop />
+      </motion.div>
+      <Toaster />
     </QueryClientProvider>
   );
 }
