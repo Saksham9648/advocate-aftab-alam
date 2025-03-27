@@ -4,16 +4,8 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
 const FixedDisclaimer = () => {
-  const [showDisclaimer, setShowDisclaimer] = useState(false);
-  
-  useEffect(() => {
-    // Show disclaimer after a short delay to ensure it appears after page load
-    const timer = setTimeout(() => {
-      setShowDisclaimer(true);
-    }, 1000);
-    
-    return () => clearTimeout(timer);
-  }, []);
+  // Start with showDisclaimer true by default
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
   
   const handleClose = () => {
     setShowDisclaimer(false);
@@ -22,20 +14,12 @@ const FixedDisclaimer = () => {
     localStorage.setItem("disclaimerAccepted", "true");
   };
   
-  // Check if user has already accepted the disclaimer
-  useEffect(() => {
-    const hasAccepted = localStorage.getItem("disclaimerAccepted") === "true";
-    if (hasAccepted) {
-      setShowDisclaimer(false);
-    }
-  }, []);
-  
   return (
     <AnimatePresence>
       {showDisclaimer && (
         <motion.div
-          className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-[1000] border-t-2 border-[#0A2463]"
-          initial={{ y: 100, opacity: 0 }}
+          className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-[9999] border-t-4 border-[#0A2463]"
+          initial={{ y: 0, opacity: 1 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3 }}
