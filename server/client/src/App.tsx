@@ -14,7 +14,7 @@ import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import FixedDisclaimer from "./components/FixedDisclaimer";
+import NewFixedDisclaimer from "./components/NewFixedDisclaimer";
 
 
 function App() {
@@ -126,7 +126,7 @@ function App() {
         <ScrollToTop />
       </motion.div>
 
-      <FixedDisclaimer />
+      <NewFixedDisclaimer />
       <Toaster />
     </QueryClientProvider>
   );
