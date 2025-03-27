@@ -493,13 +493,19 @@ const Header = ({ activeSection }: HeaderProps) => {
                     <label htmlFor="phone" className="block text-sm font-medium mb-1 text-gray-600">
                       Phone Number*
                     </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
-                      placeholder="(123) 456-7890"
-                      required
-                    />
+                    <div className="flex">
+                      <div className="bg-gray-100 flex items-center px-3 border border-gray-300 border-r-0 rounded-l-md text-gray-500">
+                        +91
+                      </div>
+                      <input
+                        type="tel"
+                        id="phone"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
+                        placeholder="1234567890"
+                        required
+                      />
+                    </div>
+                    <p className="mt-1 text-xs text-gray-500">Example: 9005505557</p>
                   </motion.div>
                   
                   <motion.div
