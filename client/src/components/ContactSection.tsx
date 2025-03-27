@@ -48,6 +48,14 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
+      // Add +91 prefix to phone number if it doesn't already have it
+      if (data.phone && !data.phone.startsWith('+')) {
+        data = {
+          ...data,
+          phone: `+91${data.phone}`
+        };
+      }
+      
       await apiRequest('POST', '/api/contact', data);
       toast({
         title: "Message Sent",
@@ -213,13 +221,19 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
               
               <div className="mb-6">
                 <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">Phone Number</label>
-                <input 
-                  type="tel" 
-                  id="phone"
-                  {...register("phone")}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
-                  placeholder="Your phone number"
-                />
+                <div className="flex">
+                  <div className="bg-gray-100 flex items-center px-3 border border-gray-300 border-r-0 rounded-l-md text-gray-500">
+                    +91
+                  </div>
+                  <input 
+                    type="tel" 
+                    id="phone"
+                    {...register("phone")}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
+                    placeholder="Your phone number"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-500">Example: 9005505557</p>
               </div>
               
               <div className="mb-6">
