@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const NewDisclaimer = () => {
+  // Always start with visible true and never check localStorage on initial render
   const [isVisible, setIsVisible] = useState(true);
+  
+  // Prevent the component from checking localStorage on mount
+  useEffect(() => {
+    // Remove any existing localStorage item to ensure it always shows
+    localStorage.removeItem('hasSeenDisclaimer');
+  }, []);
 
   const handleClose = () => {
-    localStorage.setItem('hasSeenDisclaimer', 'true');
+    // Don't set localStorage, just toggle visibility
     setIsVisible(false);
+    
+    // For testing purposes, make it reappear after 2 seconds
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
   };
 
   // Use !important to force the popup to be visible and override any conflicting styles
