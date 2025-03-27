@@ -14,7 +14,7 @@ import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import FixedDisclaimer from "./components/FixedDisclaimer";
+
 
 function App() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -124,7 +124,7 @@ function App() {
         <Footer />
         <ScrollToTop />
       </motion.div>
-      <FixedDisclaimer />
+
       <Toaster />
     </QueryClientProvider>
   );
