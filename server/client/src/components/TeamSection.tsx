@@ -9,13 +9,13 @@ interface TeamSectionProps {
 const attorneys = [
   {
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "James Wilson",
+    name: "Aftab Alam",
     title: "Founding Partner",
-    bio: "With over 15 years of experience, James has established a reputation for excellence in corporate law and intellectual property. Harvard Law School graduate and recognized by Super Lawyers 2018-2023.",
+    bio: "With over 15 years of experience, Aftab has established a reputation for excellence in criminal law and intellectual property. Specializing in various areas of law with a commitment to providing exceptional legal counsel.",
     socialLinks: {
       linkedin: "#",
       twitter: "#",
-      email: "james@wilsonlaw.com"
+      email: "aftabalamanasari1987@gmail.com"
     }
   },
   {

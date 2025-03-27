@@ -69,7 +69,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
             Our Story
           </motion.span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">About <span className="text-[#E6AF2E] relative">
-            James Wilson
+            Aftab Alam
             <motion.div 
               className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E6AF2E]/30"
               initial={{ scaleX: 0 }}
@@ -106,7 +106,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
               >
                 <img 
                   src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80" 
-                  alt="James Wilson - Attorney at Law" 
+                  alt="Aftab Alam - Advocate" 
                   className="w-full object-cover h-96 md:h-[500px]"
                 />
                 <motion.div 
@@ -123,7 +123,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
                       transition={{ duration: 0.3 }}
                     >
                       <p className="text-white text-lg font-medium">"Justice is not just my profession, it's my passion."</p>
-                      <p className="text-white/80 text-sm mt-2 italic">- James Wilson</p>
+                      <p className="text-white/80 text-sm mt-2 italic">- Aftab Alam</p>
                     </motion.div>
                   </div>
                 </motion.div>

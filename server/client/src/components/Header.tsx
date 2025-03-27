@@ -178,7 +178,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                 />
               </motion.div>
               <div className="text-xl font-serif font-bold text-[#0A2463] group-hover:text-[#E6AF2E] transition-colors duration-300">
-                James Wilson <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">LAW FIRM</span>
+                Aftab Alam <span className="hidden md:inline text-sm font-sans font-normal text-gray-500">ADVOCATE</span>
               </div>
             </motion.button>
             
@@ -302,9 +302,9 @@ const Header = ({ activeSection }: HeaderProps) => {
             >
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-[#E6AF2E] flex items-center justify-center rounded-lg mr-3">
-                  <span className="text-[#0A2463] font-serif font-bold text-xl">JW</span>
+                  <span className="text-[#0A2463] font-serif font-bold text-xl">AA</span>
                 </div>
-                <div className="text-white font-serif text-lg">James Wilson <span className="text-xs font-light text-white/70">LAW FIRM</span></div>
+                <div className="text-white font-serif text-lg">Aftab Alam <span className="text-xs font-light text-white/70">ADVOCATE</span></div>
               </div>
               
               <motion.button

@@ -16,8 +16,8 @@ const contactFormSchema = z.object({
   phone: z.string().optional(),
   service: z.string().optional(),
   message: z.string().min(10, { message: "Message must be at least 10 characters" }),
-  privacy: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the privacy policy" }),
+  privacy: z.boolean().refine(val => val === true, {
+    message: "You must accept the privacy policy",
   }),
 });
 
@@ -37,7 +37,7 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
       phone: '',
       service: '',
       message: '',
-      privacy: false,
+      privacy: undefined as unknown as true,
     }
   });
 
@@ -102,7 +102,7 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Office Address</h4>
-                    <p>123 Legal Avenue, Suite 500<br />New York, NY 10001</p>
+                    <p>Law Office Of Aftab Alam Ansari Advocate<br />Lakhimpur Kheri, Uttar Pradesh, India</p>
                   </div>
                 </div>
                 
@@ -112,7 +112,9 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Phone</h4>
-                    <a href="tel:+12125551234" className="hover:text-[#E6AF2E] transition-colors duration-300">(212) 555-1234</a>
+                    <a href="tel:+919005505557" className="hover:text-[#E6AF2E] transition-colors duration-300">+91 9005505557</a>
+                    <br />
+                    <a href="tel:+918299429974" className="hover:text-[#E6AF2E] transition-colors duration-300">+91 8299429974</a>
                   </div>
                 </div>
                 
@@ -122,7 +124,7 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   </div>
                   <div>
                     <h4 className="font-bold mb-1">Email</h4>
-                    <a href="mailto:james@wilsonlaw.com" className="hover:text-[#E6AF2E] transition-colors duration-300">james@wilsonlaw.com</a>
+                    <a href="mailto:aftabalamanasari1987@gmail.com" className="hover:text-[#E6AF2E] transition-colors duration-300">aftabalamanasari1987@gmail.com</a>
                   </div>
                 </div>
                 
@@ -140,14 +142,14 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
               <div className="mt-10">
                 <h4 className="font-bold mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-                    <i className="fab fa-linkedin-in text-[#E6AF2E]"></i>
-                  </a>
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-                    <i className="fab fa-twitter text-[#E6AF2E]"></i>
-                  </a>
-                  <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <a href="https://www.facebook.com/aftabalamlmp" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
                     <i className="fab fa-facebook-f text-[#E6AF2E]"></i>
+                  </a>
+                  <a href="https://youtube.com/channel/UCdWSJXOkTlVnAWiltezgX-Q" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                    <i className="fab fa-youtube text-[#E6AF2E]"></i>
+                  </a>
+                  <a href="https://www.instagram.com/advaftabalam" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                    <i className="fab fa-instagram text-[#E6AF2E]"></i>
                   </a>
                 </div>
               </div>
@@ -210,12 +212,12 @@ const ContactSection = ({ registerSection }: ContactSectionProps) => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] focus:border-transparent"
                 >
                   <option value="">Select a service</option>
-                  <option value="corporate">Corporate Law</option>
-                  <option value="litigation">Litigation</option>
-                  <option value="intellectual-property">Intellectual Property</option>
-                  <option value="real-estate">Real Estate Law</option>
-                  <option value="estate-planning">Estate Planning</option>
-                  <option value="employment">Employment Law</option>
+                  <option value="criminal">Criminal Law</option>
+                  <option value="business">Business Law</option>
+                  <option value="family">Family & Marriage Laws</option>
+                  <option value="protection">Protection Laws</option>
+                  <option value="cyber">Cyber Law</option>
+                  <option value="ip">Intellectual Property Law</option>
                   <option value="other">Other</option>
                 </select>
               </div>
