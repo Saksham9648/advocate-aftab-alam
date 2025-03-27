@@ -13,7 +13,6 @@ import TestimonialsSection from "./components/TestimonialsSection";
 import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import StaticDisclaimer from "./components/StaticDisclaimer";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -69,9 +68,6 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Legal Disclaimer Popup */}
-      <StaticDisclaimer />
-
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
