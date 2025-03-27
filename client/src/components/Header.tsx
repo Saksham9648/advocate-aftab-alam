@@ -151,7 +151,7 @@ const Header = ({ activeSection }: HeaderProps) => {
               whileTap={{ scale: 0.98 }}
             >
               <motion.div 
-                className="mr-3 w-14 h-14 flex items-center justify-center rounded-full relative overflow-hidden"
+                className="mr-3 w-14 h-14 flex items-center justify-center rounded-md relative overflow-hidden"
                 whileHover={{
                   boxShadow: "0 0 15px rgba(0, 0, 0, 0.3)",
                   transition: { duration: 0.3 }
@@ -160,7 +160,7 @@ const Header = ({ activeSection }: HeaderProps) => {
                 <img 
                   src={logoImage} 
                   alt="Advocate Aftab Alam" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </motion.div>
               <div className="text-xl font-serif font-bold text-[#0A2463] group-hover:text-[#E6AF2E] transition-colors duration-300">
@@ -287,8 +287,8 @@ const Header = ({ activeSection }: HeaderProps) => {
               transition={{ delay: 0.1 }}
             >
               <div className="flex items-center">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full overflow-hidden mr-3">
-                  <img src={logoImage} alt="Advocate Aftab Alam" className="w-full h-full object-cover" />
+                <div className="w-12 h-12 flex items-center justify-center rounded-md overflow-hidden mr-3">
+                  <img src={logoImage} alt="Advocate Aftab Alam" className="w-full h-full object-contain" />
                 </div>
                 <div className="text-white font-serif text-lg">Advocate Aftab Alam <span className="text-xs font-light text-white/70">LAW FIRM</span></div>
               </div>
