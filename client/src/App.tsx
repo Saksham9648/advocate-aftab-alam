@@ -6,9 +6,13 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import ServicesSection from "./components/ServicesSection";
+import TeamSection from "./components/TeamSection";
 import TestimonialsSection from "./components/TestimonialsSection";
+import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import DisclaimerPopup from "./components/DisclaimerPopup";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -16,7 +20,9 @@ function App() {
     hero: null,
     about: null,
     services: null,
+    team: null,
     testimonials: null,
+    clients: null,
     contact: null,
   });
 
@@ -51,15 +57,19 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen font-sans antialiased bg-background text-foreground">
+        <DisclaimerPopup />
         <Header activeSection={activeSection} />
         
         <HeroSection registerSection={registerSection} />
         <AboutSection registerSection={registerSection} />
         <ServicesSection registerSection={registerSection} />
+        <TeamSection registerSection={registerSection} />
         <TestimonialsSection registerSection={registerSection} />
+        <ClientsSection registerSection={registerSection} />
         <ContactSection registerSection={registerSection} />
         
         <Footer />
+        <ScrollToTop />
       </div>
       <Toaster />
     </QueryClientProvider>
