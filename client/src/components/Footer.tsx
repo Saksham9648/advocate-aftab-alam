@@ -25,11 +25,12 @@ const Footer = () => {
     { 
       title: 'Services',
       links: [
-        { label: 'Corporate Law', section: 'services' },
-        { label: 'Litigation', section: 'services' },
+        { label: 'Criminal Law', section: 'services' },
+        { label: 'Business Law', section: 'services' },
+        { label: 'Family & Marriage Laws', section: 'services' },
+        { label: 'Protection Laws', section: 'services' },
+        { label: 'Cyber Law', section: 'services' },
         { label: 'Intellectual Property', section: 'services' },
-        { label: 'Real Estate Law', section: 'services' },
-        { label: 'Estate Planning', section: 'services' },
       ]
     },
     {
@@ -86,21 +87,21 @@ const Footer = () => {
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
-                <span>123 Legal Avenue, Suite 500<br />New York, NY 10001</span>
+                <span>Law Office Of Aftab Alam Ansari Advocate<br />Lakhimpur Kheri, Uttar Pradesh, India</span>
               </div>
               
               <div className="flex items-start">
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-phone-alt"></i>
                 </div>
-                <span>(212) 555-1234</span>
+                <span>+91 9005505557 / +91 8299429974</span>
               </div>
               
               <div className="flex items-start">
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-envelope"></i>
                 </div>
-                <span>aftab.advocate@advocateaftabalam.com</span>
+                <span>aftabalamanasari1987@gmail.com</span>
               </div>
             </div>
           </motion.div>
