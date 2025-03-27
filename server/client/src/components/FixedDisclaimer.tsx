@@ -4,8 +4,16 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
 const FixedDisclaimer = () => {
-  // Start with showDisclaimer true by default
+  // State for showing the disclaimer
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  
+  // Check localStorage on component mount
+  useEffect(() => {
+    const hasAccepted = localStorage.getItem("disclaimerAccepted") === "true";
+    if (hasAccepted) {
+      setShowDisclaimer(false);
+    }
+  }, []);
   
   const handleClose = () => {
     setShowDisclaimer(false);
@@ -14,15 +22,16 @@ const FixedDisclaimer = () => {
     localStorage.setItem("disclaimerAccepted", "true");
   };
   
+  // Use a higher z-index than anything else
   return (
     <AnimatePresence>
       {showDisclaimer && (
         <motion.div
-          className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-[9999] border-t-4 border-[#0A2463]"
-          initial={{ y: 0, opacity: 1 }}
+          className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-[999999] border-t-4 border-[#0A2463]"
+          initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.5, delay: 1 }} // Add delay to appear after loader
         >
           <div className="container mx-auto p-4 relative">
             <Button 
