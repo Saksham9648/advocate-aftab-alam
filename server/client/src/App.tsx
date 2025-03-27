@@ -14,6 +14,8 @@ import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import DisclaimerPopup from "./components/DisclaimerPopup";
+import TestPopup from "./components/test/TestPopup";
+import SimpleDisclaimer from "./components/SimpleDisclaimer";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -69,8 +71,14 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Disclaimer Popup - Placed at the top level to ensure it's always visible */}
-      <DisclaimerPopup />
+      {/* Simple disclaimer without animations */}
+      <SimpleDisclaimer />
+      
+      {/* Test popup to verify that popups are working */}
+      <TestPopup />
+      
+      {/* Original Disclaimer Popup - commented out for now */}
+      {/* <DisclaimerPopup /> */}
 
       {/* Loading overlay */}
       <AnimatePresence>
