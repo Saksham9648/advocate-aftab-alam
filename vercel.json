@@ -1,0 +1,19 @@
+{
+  "buildCommand": "CI=false vite build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "installCommand": "npm install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "trailingSlash": false,
+  "cleanUrls": true,
+  "github": {
+    "silent": true
+  }
+}

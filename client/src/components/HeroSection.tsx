@@ -183,7 +183,7 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
                 repeatType: "reverse" 
               }}
             >
-              James Wilson Law Firm
+              Advocate Aftab Alam
             </motion.span>
           </motion.div>
           

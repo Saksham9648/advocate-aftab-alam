@@ -5,22 +5,16 @@ const DisclaimerPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check if the disclaimer has been shown before
-    const hasSeenDisclaimer = localStorage.getItem('hasSeenDisclaimer');
+    // Show the disclaimer after a short delay on every page load
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 1500);
     
-    if (!hasSeenDisclaimer) {
-      // If not, show the disclaimer after a short delay
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1500);
-      
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   const closeDisclaimer = () => {
-    // Mark that the user has seen the disclaimer
-    localStorage.setItem('hasSeenDisclaimer', 'true');
+    // Simply close the popup without storing in localStorage
     setIsOpen(false);
   };
 
@@ -61,7 +55,7 @@ const DisclaimerPopup = () => {
                 </p>
                 <p className="mb-4">
                   No attorney-client relationship is created by visiting this website or by communicating 
-                  with James Wilson or any of our attorneys through this website.
+                  with Advocate Aftab Alam or any of our attorneys through this website.
                 </p>
                 <p>
                   Past case results do not guarantee similar outcomes in future cases. 
