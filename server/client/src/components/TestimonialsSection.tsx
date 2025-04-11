@@ -2,33 +2,43 @@ import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import TestimonialCard from './TestimonialCard';
 
+interface Testimonial {
+  quote: string;
+  name: string;
+  title: string;
+  rating: number;
+  image: string;
+}
+
 interface TestimonialsSectionProps {
   registerSection: (id: string, ref: HTMLDivElement | null) => void;
 }
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
-    quote: "James provided exceptional legal counsel during our company's merger. His attention to detail and strategic thinking helped us navigate complex negotiations with confidence. I highly recommend his services.",
-    name: "Michael Scott",
-    title: "CEO, Dunder Mifflin",
-    initials: "MS",
-    rating: 5
+    quote: "Hi, I am Roli Mehrotra. My Matrimonial Dispute was resolved by Aftab Sir in 06 Months. Thanks to Aftab Sir 🙏🏻",
+    name: "Roli Mehrotra",
+    title: "Client",
+    rating: 5,
+    image: 'https://i.ibb.co/WvZGSXkh/IMG-20250130-WA0040.jpg'
   },
   {
-    quote: "Working with James on our intellectual property matters has been a game-changer for our startup. His expertise and proactive approach ensured our innovations were properly protected.",
-    name: "Sarah Rodriguez",
-    title: "Founder, InnoTech Solutions",
-    initials: "SR",
-    rating: 5
+    quote: "Competent lawyer with professional approach to his work and client. My experience with him in a civil suit was quite satisfactory. He understands and adjusts himself for his clients requirements and believes in results.",
+    name: "Srikant Verma",
+    title: "Client",
+    rating: 5,
+    image: 'https://i.ibb.co/Lzqr2Qxd/IMG-20250201-WA0001.jpg'
   },
   {
-    quote: "James demonstrated exceptional skill in resolving our real estate dispute. His thorough preparation and courtroom expertise resulted in a favorable outcome. I wouldn't hesitate to recommend him.",
-    name: "Jonathan Taylor",
-    title: "Real Estate Developer",
-    initials: "JT",
-    rating: 4.5
+    quote: "Hi, I am Mumtaz. My Civil Dispute Of Arbitration and Conciliation Matter was Resolved By Aftab Sir. Very Thanks to Aftab Sir.",
+    name: "Mumtaz",
+    title: "Client",
+    rating: 5,
+    image: 'https://i.ibb.co/dsZTBbWM/IMG-20250130-WA0041.jpg'
   }
 ];
+
+const BG_IMAGE_URL = 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80';
 
 const TestimonialsSection = ({ registerSection }: TestimonialsSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -43,8 +53,9 @@ const TestimonialsSection = ({ registerSection }: TestimonialsSectionProps) => {
       id="testimonials" 
       ref={sectionRef}
       className="py-20 bg-[#F8F9FA] relative"
+      aria-label="Client testimonials"
       style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')",
+        backgroundImage: `url('${BG_IMAGE_URL}')`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -59,7 +70,9 @@ const TestimonialsSection = ({ registerSection }: TestimonialsSectionProps) => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-white">Client <span className="text-[#E6AF2E]">Testimonials</span></h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-white">
+            Client <span className="text-[#E6AF2E]">Testimonials</span>
+          </h2>
           <div className="w-20 h-1 bg-[#E6AF2E] mx-auto mb-8"></div>
           <p className="max-w-3xl mx-auto text-lg text-white/80">
             What clients are saying about their experience working with me on their legal matters.
@@ -69,12 +82,8 @@ const TestimonialsSection = ({ registerSection }: TestimonialsSectionProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
-              key={index}
-              quote={testimonial.quote}
-              name={testimonial.name}
-              title={testimonial.title}
-              initials={testimonial.initials}
-              rating={testimonial.rating}
+              key={`${testimonial.name}-${index}`}
+              {...testimonial}
               delay={0.2 + index * 0.1}
             />
           ))}
