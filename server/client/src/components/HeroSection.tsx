@@ -183,7 +183,7 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
                 repeatType: "reverse" 
               }}
             >
-              Aftab Alam Advocate
+              Aftab Alam Law Firm
             </motion.span>
           </motion.div>
           
@@ -257,7 +257,7 @@ const HeroSection = ({ registerSection }: HeroSectionProps) => {
             animate="visible"
             custom={2}
           >
-            Dedicated to providing exceptional legal counsel with integrity, expertise, and commitment to your success. Our team brings over 15 years of experience to your most challenging legal matters.
+            Law Firm’s areas of practice and the lawyers dealing with the area include Civil Litigation i.e. Civil Lawyers in Lucknow, Property Lawyers in Lucknow, Criminal Litigation i.e. Criminal Lawyers in Lucknow, DRT Lawyers in Lucknow, Banking & Finance, Corporate Law & Commercial Laws, Arbitration & Conciliation,Cyber Fraud Cases,Bail Matters Of High Court Lucknow.
           </motion.p>
           
           <motion.div 
