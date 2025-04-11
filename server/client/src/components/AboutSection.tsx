@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import aboutImage from '../assets/aboutalam.jpg';
 
 interface AboutSectionProps {
   registerSection: (id: string, ref: HTMLDivElement | null) => void;
@@ -27,9 +28,9 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
   };
 
   const statsItems = [
-    { icon: "fa-user-graduate", title: "Education", details: "Harvard Law School, J.D.", subDetails: "Yale University, B.A." },
-    { icon: "fa-gavel", title: "Experience", details: "15+ Years of Practice", subDetails: "500+ Cases Handled" },
-    { icon: "fa-award", title: "Recognition", details: "Super Lawyers 2018-2023", subDetails: "Best Attorneys of America" },
+    { icon: "fa-user-graduate", title: "Education", details: "LLB Graduate", subDetails: "AIBE Qualified Advocate" },
+    { icon: "fa-gavel", title: "Experience", details: "25+ Years of Practice", subDetails: "800+ Criminal Cases Handled" },
+    { icon: "fa-award", title: "Recognition", details: "Expert in Criminal, Civil & IP Law", subDetails: "Best Law Office of Aftab Alam Ansari" },
   ];
 
   return (
@@ -69,7 +70,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
             Our Story
           </motion.span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">About <span className="text-[#E6AF2E] relative">
-            Aftab Alam
+            Advocate Aftab Alam
             <motion.div 
               className="absolute -bottom-2 left-0 right-0 h-1 bg-[#E6AF2E]/30"
               initial={{ scaleX: 0 }}
@@ -105,8 +106,8 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
                 transition={{ duration: 0.3 }}
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80" 
-                  alt="Aftab Alam - Advocate" 
+                  src={aboutImage} 
+                  alt="Advocate Aftab Alam" 
                   className="w-full object-cover h-96 md:h-[500px]"
                 />
                 <motion.div 
@@ -123,7 +124,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
                       transition={{ duration: 0.3 }}
                     >
                       <p className="text-white text-lg font-medium">"Justice is not just my profession, it's my passion."</p>
-                      <p className="text-white/80 text-sm mt-2 italic">- Aftab Alam</p>
+                      <p className="text-white/80 text-sm mt-2 italic">- Advocate Aftab Alam</p>
                     </motion.div>
                   </div>
                 </motion.div>
@@ -158,7 +159,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              With over 15 years of experience, I've established a reputation for providing exceptional legal representation and counsel to individuals and businesses across a wide range of practice areas.
+              Founded in February 2013, the Best Law Office of Aftab Alam Ansari offers specialized legal services in Criminal, Civil, and IP Law, focusing on minimizing proceedings and maximizing protection for our clients.
             </motion.p>
             
             <motion.p 
@@ -167,7 +168,7 @@ const AboutSection = ({ registerSection }: AboutSectionProps) => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              After graduating with honors from Harvard Law School, I began my career at Johnson & Partners, where I quickly rose to become a partner. My approach combines rigorous legal analysis with a deep commitment to understanding each client's unique circumstances and objectives.
+              Our firm uses secure ERP and IMS systems to manage cases efficiently, representing clients in Criminal and Civil matters across Lakhimpur Kheri and Lucknow. With over 25 years of experience, we handle a wide range of legal matters including Family & Marriage Laws and Criminal & Protection Laws.
             </motion.p>
             
             <motion.div 
