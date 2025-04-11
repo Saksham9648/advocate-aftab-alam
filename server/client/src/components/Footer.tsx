@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logoImage from '../assets/logoalam.jpg';
 
 const Footer = () => {
   const scrollToSection = (sectionId: string) => {
@@ -24,11 +25,12 @@ const Footer = () => {
     { 
       title: 'Services',
       links: [
-        { label: 'Corporate Law', section: 'services' },
-        { label: 'Litigation', section: 'services' },
+        { label: 'Criminal Law', section: 'services' },
+        { label: 'Business Law', section: 'services' },
+        { label: 'Family & Marriage Laws', section: 'services' },
+        { label: 'Protection Laws', section: 'services' },
+        { label: 'Cyber Law', section: 'services' },
         { label: 'Intellectual Property', section: 'services' },
-        { label: 'Real Estate Law', section: 'services' },
-        { label: 'Estate Planning', section: 'services' },
       ]
     },
     {
@@ -53,8 +55,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#0A2463] text-white pt-16 pb-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#0A2463] text-white pt-16 pb-8 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#E6AF2E]/40 via-[#E6AF2E] to-[#E6AF2E]/40"></div>
+      <div className="absolute -top-32 -right-32 w-64 h-64 bg-[#E6AF2E]/10 rounded-full"></div>
+      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#E6AF2E]/5 rounded-full"></div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Logo and contact info column */}
           <motion.div 
@@ -68,16 +75,16 @@ const Footer = () => {
               onClick={() => scrollToSection('hero')}
               className="flex items-center mb-6 group"
             >
-              <div className="mr-3 w-10 h-10 bg-white text-[#0A2463] flex items-center justify-center rounded-md">
-                <span className="text-[#E6AF2E] font-serif font-bold text-xl">JW</span>
+              <div className="mr-3 w-10 h-10 bg-white flex items-center justify-center rounded-md overflow-hidden">
+                <img src={logoImage} alt="Advocate Aftab Alam" className="w-full h-full object-contain" />
               </div>
               <div className="text-xl font-serif font-bold text-white group-hover:text-[#E6AF2E] transition-colors duration-300">
-                James Wilson Law
+                Advocate Aftab Alam
               </div>
             </button>
             
             <p className="mb-8 text-white/80 max-w-md">
-              Providing exceptional legal counsel with integrity, expertise, and a commitment to your success for over 15 years.
+              Providing exceptional legal counsel with integrity, expertise, and a commitment to your success for over 10 years in criminal, civil, and family law matters.
             </p>
             
             <div className="space-y-4">
@@ -85,21 +92,21 @@ const Footer = () => {
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
-                <span>123 Legal Avenue, Suite 500<br />New York, NY 10001</span>
+                <span>Law Office Of Aftab Alam Ansari Advocate<br />Vibhuti Khand, Gomti Nagar, Lucknow, Uttar Pradesh 226010</span>
               </div>
               
               <div className="flex items-start">
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-phone-alt"></i>
                 </div>
-                <span>(212) 555-1234</span>
+                <span>+91 9554505557</span>
               </div>
               
               <div className="flex items-start">
                 <div className="text-[#E6AF2E] mr-3 mt-1">
                   <i className="fas fa-envelope"></i>
                 </div>
-                <span>james@wilsonlaw.com</span>
+                <span>aftab8490@live.com</span>
               </div>
             </div>
           </motion.div>
@@ -145,54 +152,110 @@ const Footer = () => {
           ))}
         </div>
         
-        {/* Newsletter and social */}
-        <motion.div 
-          className="border-t border-white/10 pt-8 pb-4 flex flex-col lg:flex-row items-center justify-between"
+        {/* Consultation call to action */}
+        <motion.div
+          className="border-t border-white/10 pt-10 pb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="mb-6 lg:mb-0">
-            <h3 className="text-lg font-medium mb-4">Subscribe to our Newsletter</h3>
-            <div className="flex w-full max-w-md">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#E6AF2E] text-white"
-              />
-              <button className="bg-[#E6AF2E] px-4 py-2 rounded-r-md text-[#0A2463] font-bold hover:bg-yellow-500 transition-colors duration-300">
-                Subscribe
+          <div className="bg-[#0C2D7A] rounded-xl p-6 md:p-8 shadow-lg relative overflow-hidden mb-10">
+            {/* Decorative elements */}
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#E6AF2E]/10 rounded-full"></div>
+            <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-[#E6AF2E]/5 rounded-full"></div>
+            
+            <div className="flex flex-col md:flex-row items-center justify-between relative z-10 gap-6">
+              <div className="text-center md:text-left">
+                <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-3">
+                  Need Legal Assistance?
+                </h3>
+                <p className="text-white/80 max-w-xl leading-relaxed">
+                  I'm here to help you navigate your legal challenges. Get in touch for a consultation.
+                </p>
+              </div>
+              
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="bg-[#E6AF2E] hover:bg-[#E6AF2E]/90 text-[#0A2463] font-bold py-3 px-6 rounded-lg shadow-lg flex items-center gap-2 relative overflow-hidden group"
+                style={{ whiteSpace: 'nowrap' }}
+              >
+                <span className="relative z-10">Schedule a Consultation</span>
+                <span className="relative z-10 group-hover:translate-x-1 transition-transform duration-300">
+                  <i className="fas fa-arrow-right"></i>
+                </span>
               </button>
             </div>
           </div>
           
-          <div className="flex space-x-4">
-            <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-              <i className="fab fa-linkedin-in text-[#E6AF2E]"></i>
-            </a>
-            <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-              <i className="fab fa-twitter text-[#E6AF2E]"></i>
-            </a>
-            <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-              <i className="fab fa-facebook-f text-[#E6AF2E]"></i>
-            </a>
-            <a href="#" className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
-              <i className="fab fa-instagram text-[#E6AF2E]"></i>
-            </a>
+          {/* Practice areas highlight */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Criminal Law</span>
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Business Law</span>
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Family & Marriage Laws</span>
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Protection Laws</span>
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Cyber Law</span>
+            <span className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white/80 transition-colors cursor-default">Intellectual Property</span>
+          </div>
+          
+          {/* Social media links */}
+          <div className="flex flex-col items-center justify-center">
+            <h3 className="text-lg font-medium mb-4">Connect With Me</h3>
+            <div className="flex space-x-4">
+              <a 
+                href="https://www.facebook.com/aftabalamlmp?mibextid=ZbWKwL" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                aria-label="Facebook"
+              >
+                <i className="fab fa-facebook-f text-[#E6AF2E]"></i>
+              </a>
+              <a 
+                href="https://youtube.com/channel/UCdWSJXOkTlVnAWiltezgX-Q" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <i className="fab fa-youtube text-[#E6AF2E]"></i>
+              </a>
+              <a 
+                href="https://www.instagram.com/advaftabalam/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-white/10 hover:bg-[#E6AF2E]/20 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram text-[#E6AF2E]"></i>
+              </a>
+            </div>
           </div>
         </motion.div>
         
         {/* Copyright */}
         <motion.div 
-          className="text-center pt-4 text-sm text-white/60"
+          className="border-t border-white/10 text-center pt-6 text-sm text-white/60 mt-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p>&copy; {new Date().getFullYear()} James Wilson Law Firm. All rights reserved.</p>
-          <p className="mt-1">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 mb-3">
+            <p className="flex items-center">
+              <span className="text-[#E6AF2E] mr-2"><i className="fas fa-balance-scale"></i></span>
+              <span>&copy; {new Date().getFullYear()} Advocate Aftab Alam</span>
+            </p>
+            <p className="flex items-center">
+              <span className="text-[#E6AF2E] mr-2"><i className="fas fa-shield-alt"></i></span>
+              <span>All rights reserved</span>
+            </p>
+            <p className="flex items-center">
+              <span className="text-[#E6AF2E] mr-2"><i className="fas fa-gavel"></i></span>
+              <span>Est. 2013</span>
+            </p>
+          </div>
+          <p className="mt-3 max-w-2xl mx-auto">
             This website is for informational purposes only. No attorney-client relationship is created by visiting this website.
           </p>
         </motion.div>
